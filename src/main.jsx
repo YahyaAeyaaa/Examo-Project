@@ -6,19 +6,29 @@ import { BrowserRouter , createBrowserRouter , RouterProvider } from 'react-rout
 import Register from './pages/Register.jsx'
 import Login from './pages/Login.jsx'
 import Index from './components/element/input/index.jsx'
+import HomeGuru from './pages/HomeGuru.jsx'
+import Test from './pages/test.jsx'
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />
-  },
   {
     path: '/Login',
     element: <Login />
   },
   {
-    path: '/Register',
+    path: '/',
     element: <Register />
+  },
+  {
+    path: '/HomeGuru',
+    element: <HomeGuru />
+  },
+  {
+    path: '/App',
+    element: <App />
+  },
+  {
+    path: '/Test',
+    element : <Test />
   }
 ])
 

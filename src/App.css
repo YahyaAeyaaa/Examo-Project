@@ -1,0 +1,32 @@
+
+
+
+.input-wrap{
+    display : flex;
+    justify-content: center;
+    width : 100vw;
+}
+
+.wrap{
+    display : flex;
+    position : relative;
+    height : 50px;
+    width : 500px;
+    margin : auto;
+    justify-content : center;
+}
+
+.icon-wrap {
+    position : absolute;
+    height : 100%;
+    width : 40px;
+    font : 30px;
+    display : flex;
+    justify-content : center;
+    align-items : center;
+}
+
+input {
+    padding-left :  40px;
+    width :  100%
+}

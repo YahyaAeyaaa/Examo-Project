@@ -12,7 +12,7 @@ const AuthCoyy = (props) => {
                     <h1 className="font-Poppins font-semibold text-2xl text-center">
                         {title1}
                     </h1>
-                    <p className="font-Poppins text-slate-500 text-center mb-10">
+                    <p className="font-Poppins text-slate-500 text-center mb-4">
                         {title2}
                     </p>
                     {children}
@@ -47,7 +47,7 @@ function Nav({ type }) {
                 </div>
                 <p className="text-sm mt-8 text-center">
                     Belum punya akun ?{" "}
-                    <Link to="/Register" className="text-blue-500 cursor-pointer">Daftar</Link>
+                    <Link to="/" className="text-blue-500 cursor-pointer">Daftar</Link>
                 </p>
             </>
         )

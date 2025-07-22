@@ -1,31 +1,151 @@
 import Index from "../element/input"
 import Button from "../element/button/button"
+import { use, useState } from "react";
+import { apiRegister } from "../../config/api";
+import { useNavigate } from "react-router-dom";
 
 const FromRegister = () => {
+    const navigate = useNavigate()
+
+    const [selectedRole, setSelectedRole] = useState('');
+    
+    // Tambahin state buat form data
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: ''
+    });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+
+    // Handle input changes
+    const handleInputChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    // Handle form submit
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        
+        // Validasi
+        if (!selectedRole) {
+            setError('Pilih role dulu!');
+            return;
+        }
+        
+        if (formData.password !== formData.password_confirmation) {
+            setError('Password tidak cocok!');
+            return;
+        }
+        
+        setLoading(true);
+        
+        try {
+            const registerData = {
+                ...formData,
+                role: selectedRole === 'siswa' ? 'user' : 'guru'
+            };
+            
+            const response = await apiRegister(registerData);
+            console.log('Register success:', response.data);
+            
+            navigate("/Login");
+            
+        } catch (error) {
+            console.error('Register failed:', error);
+            setError(error.response?.data?.message || 'Register gagal!');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
-        <form>
-            <Index 
-                type="text"
-                name="username"
-                placeholder="Username"
-            />
-            <Index 
-                type="email"
-                name="email"
-                placeholder="email"
-            />
-            <Index 
-                type="password"
-                name="password"
-                placeholder="password"
-            />
-            <Index 
-                type="password"
-                name="confirmPassword"
-                placeholder="confirm Password"
-            />
-            <Button text="Register" type="submit" />
-        </form>
+        <>
+            <div className="mb-3" style={{ color: '#585858' }}>
+                <h1 className="mb-3">Pilih Role :</h1>
+                <div className="flex justify-start items-center gap-4">
+                    <button 
+                        type="button"
+                        onClick={() => setSelectedRole('siswa')}
+                        className={`rounded-2xl p-4 flex items-center justify-center transition-all duration-200 hover:shadow-md ${
+                            selectedRole === 'siswa' 
+                                ? 'ring-2 ring-blue-500 shadow-lg' 
+                                : 'hover:ring-1 hover:ring-blue-300'
+                        }`}
+                    >
+                        <img src="/image/Siswa.png" alt="Siswa" className="w-12 h-12 object-contain" />
+                    </button>
+                    
+                    <button 
+                        type="button"
+                        onClick={() => setSelectedRole('guru')}
+                        className={`rounded-2xl p-4 flex items-center justify-center transition-all duration-200 hover:shadow-md ${
+                            selectedRole === 'guru' 
+                                ? 'ring-2 ring-blue-500 shadow-lg' 
+                                : 'hover:ring-1 hover:ring-blue-300'
+                        }`}
+                        style={{ 
+                          background : '#0081FF'
+                        }}
+                    >
+                        <img src="/image/GuruIcon.png" alt="Guru" className="w-12 h-12 object-contain" />
+                    </button>
+                </div>
+                
+                {selectedRole && (
+                    <p className="text-sm mt-2 text-blue-600 font-medium">
+                        Role dipilih: {selectedRole === 'siswa' ? 'Siswa' : 'Guru'}
+                    </p>
+                )}
+            </div>
+            
+            {/* Error message */}
+            {error && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    {error}
+                </div>
+            )}
+            
+            <form onSubmit={handleSubmit}>
+                <Index 
+                    type="text"
+                    name="name"
+                    placeholder="Nama Lengkap"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                />
+                <Index 
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                />
+                <Index 
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                />
+                <Index 
+                    type="password"
+                    name="password_confirmation"
+                    placeholder="Confirm Password"
+                    value={formData.password_confirmation}
+                    onChange={handleInputChange}
+                />
+                <Button 
+                    text={loading ? "Loading..." : "Register"} 
+                    type="submit" 
+                />
+            </form>
+        </>
     )
 }
 

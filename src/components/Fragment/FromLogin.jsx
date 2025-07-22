@@ -1,9 +1,17 @@
 import Index from "../element/input/index"
 import Button from "../element/button/button"
 
-const FromLogin = () => {
+
+
+function FromLogin ()  {
+        const handleRegister = (e) => {
+        e.preventDefault
+        window.location.href = 'HomeGuru'
+        localStorage.setItem('email' , event.target.email.value)
+        localStorage.setItem('password' , event.target.password.value)
+    }
     return (
-        <form>
+        <form onSubmit={handleRegister}>
             <Index 
                 type="email"
                 name="email"
