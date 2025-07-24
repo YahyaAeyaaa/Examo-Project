@@ -8,6 +8,11 @@ import Login from './pages/Login.jsx'
 import Index from './components/element/input/index.jsx'
 import HomeGuru from './pages/HomeGuru.jsx'
 import Test from './pages/test.jsx'
+import BankSoalGuru from './pages/BankSoalGuru.jsx'
+import DaftarUjianGuru from './pages/DaftarUjianGuru.jsx'
+import WarningEditGuru from './components/Fragment/WarningEditGuru.jsx'
+import CardUjian from './components/Fragment/DaftarUjianCard.jsx'
+import TambahUjianPage from './pages/TambahUjianPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -28,7 +33,23 @@ const router = createBrowserRouter([
   },
   {
     path: '/Test',
-    element : <Test />
+    element : <CardUjian />
+  },
+  {
+    path: '/BankSoal',
+    element: <BankSoalGuru />
+  },
+  {
+    path : '/DaftarUjian',
+    element : <DaftarUjianGuru />
+  },
+  {
+    path : '/WarningEdit',
+    element : <WarningEditGuru />
+  },
+  {
+    path : '/TambahUjian',
+    element : <TambahUjianPage />
   }
 ])
 

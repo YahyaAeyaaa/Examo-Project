@@ -19,7 +19,7 @@ const AuthCoyy = (props) => {
                     <Nav type={type} />
                 </div>
             </div>
-                    <div className="w-1/2 relative flex items-center left-20">
+                    <div className="w-1/2 relative md:flex items-center left-20 hidden">
             <div className="bg-blue-100 w-350 h-350 absolute rounded-full flex items-center justify-center">
             <div className="bg-blue-200 w-300 h-300 rounded-full flex items-center justify-center">
                 <div className="bg-blue-300 w-250 h-250 rounded-full">

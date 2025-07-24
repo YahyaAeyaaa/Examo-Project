@@ -1,33 +1,78 @@
-import Index from "../element/input/index"
-import Button from "../element/button/button"
+    import { useState } from "react";
+    import { useNavigate } from "react-router-dom";
+    import Index from "../element/input/index";
+    import Button from "../element/button/button";
+    import { apiLogin, setAuthToken } from "../../config/api";
 
+    function FromLogin() {
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        email: "",
+        password: ""
+    });
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
 
-function FromLogin ()  {
-        const handleRegister = (e) => {
-        e.preventDefault
-        window.location.href = 'HomeGuru'
-        localStorage.setItem('email' , event.target.email.value)
-        localStorage.setItem('password' , event.target.password.value)
-    }
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+        const response = await apiLogin(formData);
+
+        // Ambil token & user
+        const { token, user } = response.data;
+
+        // Simpan token ke localStorage
+        localStorage.setItem("authToken", token);
+        setAuthToken(token); // jika pakai axios config untuk auto-inject
+
+        // Arahkan berdasarkan role
+        switch (user.role) {
+            case "guru":
+            navigate("/HomeGuru");
+            break;
+            case "siswa":
+            navigate("/HomeSiswa");
+            break;
+            default:
+            console.warn("Role tidak dikenali:", user.role);
+            alert("Akun tidak memiliki role yang valid.");
+        }
+
+        } catch (error) {
+        console.error("Login gagal:", error);
+        alert("Email atau password salah!");
+        }
+    };
+
     return (
-        <form onSubmit={handleRegister}>
-            <Index 
-                type="email"
-                name="email"
-                placeholder="email"
-            />
-            <Index 
-                type="password"
-                name="password"
-                placeholder="password"
-            />
-            <p className="text-blue-500 text-right mb-5 cursor-pointer">
-                Lupa Password?
-            </p>
-            <Button text="Login" type="submit" />
+        <form onSubmit={handleLogin}>
+        <Index 
+            type="email"
+            name="email"
+            placeholder="email"
+            value={formData.email}
+            onChange={handleChange}
+        />
+        <Index 
+            type="password"
+            name="password"
+            placeholder="password"
+            value={formData.password}
+            onChange={handleChange}
+        />
+        <p className="text-blue-500 text-right mb-5 cursor-pointer">
+            Lupa Password?
+        </p>
+        <Button 
+            text="Login" 
+            type="submit"
+            className="w-full rounded-2xl p-3 text-white bg-blue-500 hover:bg-blue-600 transition-all duration-200"
+        />
         </form>
-    )
-}
+    );
+    }
 
-export default FromLogin
+    export default FromLogin;

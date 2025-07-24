@@ -1,6 +1,6 @@
 import Index from "../element/input"
 import Button from "../element/button/button"
-import { use, useState } from "react";
+import { useState } from "react";
 import { apiRegister } from "../../config/api";
 import { useNavigate } from "react-router-dom";
 
@@ -39,7 +39,7 @@ const FromRegister = () => {
         }
         
         if (formData.password !== formData.password_confirmation) {
-            setError('Password tidak cocok!');
+            setError('Password salah ! silahkan coba lagi');
             return;
         }
         
@@ -68,32 +68,32 @@ const FromRegister = () => {
         <>
             <div className="mb-3" style={{ color: '#585858' }}>
                 <h1 className="mb-3">Pilih Role :</h1>
-                <div className="flex justify-start items-center gap-4">
+                <div className="flex justify-start items-center gap-4 ">
                     <button 
                         type="button"
                         onClick={() => setSelectedRole('siswa')}
-                        className={`rounded-2xl p-4 flex items-center justify-center transition-all duration-200 hover:shadow-md ${
+                        className={`rounded-2xl p-4 flex group items-center justify-center transition-all duration-200 hover:shadow-md ${
                             selectedRole === 'siswa' 
                                 ? 'ring-2 ring-blue-500 shadow-lg' 
                                 : 'hover:ring-1 hover:ring-blue-300'
                         }`}
                     >
-                        <img src="/image/Siswa.png" alt="Siswa" className="w-12 h-12 object-contain" />
+                        <img src="/image/Siswa.png" alt="Siswa" className="w-12 h-12 object-contain group-hover:scale-110 transition-all duration-300" />
                     </button>
                     
                     <button 
                         type="button"
                         onClick={() => setSelectedRole('guru')}
-                        className={`rounded-2xl p-4 flex items-center justify-center transition-all duration-200 hover:shadow-md ${
+                        className={`rounded-2xl p-4 group flex items-center justify-center transition-all duration-200 hover:shadow-md ${
                             selectedRole === 'guru' 
-                                ? 'ring-2 ring-blue-500 shadow-lg' 
+                                ? 'ring-2 ring-blue-400 shadow-lg' 
                                 : 'hover:ring-1 hover:ring-blue-300'
                         }`}
                         style={{ 
-                          background : '#0081FF'
+                        background : '#0081FF'
                         }}
                     >
-                        <img src="/image/GuruIcon.png" alt="Guru" className="w-12 h-12 object-contain" />
+                        <img src="/image/GuruIcon.png" alt="Guru" className="w-12 h-12 object-contain group-hover:scale-110 transition-all duration-300" />
                     </button>
                 </div>
                 
@@ -105,11 +105,7 @@ const FromRegister = () => {
             </div>
             
             {/* Error message */}
-            {error && (
-                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                    {error}
-                </div>
-            )}
+
             
             <form onSubmit={handleSubmit}>
                 <Index 
@@ -140,9 +136,15 @@ const FromRegister = () => {
                     value={formData.password_confirmation}
                     onChange={handleInputChange}
                 />
+                {error && (
+                <div className="text-red-500 mb-2">
+                    {error}
+                </div>
+            )}
                 <Button 
                     text={loading ? "Loading..." : "Register"} 
-                    type="submit" 
+                    type="submit"
+                    className="w-full rounded-2xl p-3 text-white bg-blue-500 hover:bg-blue-600 transition-all duration-200"
                 />
             </form>
         </>

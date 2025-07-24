@@ -1,13 +1,19 @@
 const Button = (props) => {
-    const { text = "Tombol Nich" , className = "" , type} = props
+    const { 
+        text = "Tombol Nich",
+        className = "",
+        type,
+        color = "bg-blue-500" ,
+        texts = ""
+    } = props
+    
     return (
-        <>
-            <button className={`cursor-pointer bg-blue-500 p-2 rounded-2xl w-full text-white${className}`}
+        <button 
             type={type}
-            >
+            className={`${color} ${className} px-4 py-2 ${texts} rounded hover:opacity-80`}
+        >
             {text}
-            </button>
-        </>
+        </button>
     )
 }
 

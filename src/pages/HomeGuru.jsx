@@ -6,6 +6,8 @@ import { RiStickyNoteAddFill } from "react-icons/ri";
 import Button from "../components/element/button/button";
 import { FaRegTrashAlt } from "react-icons/fa";
 import SearchInput from "../components/element/InputCearch/Input";
+import DaftarCardUjian from "../components/Fragment/DaftarUjianCard";
+import CardBankSoal from "../components/Fragment/BankSoalCard";
 
 
 
@@ -67,7 +69,6 @@ const HomeGuru = () => {
             <p className="font-semibold" style={{ fontSize : '32px' }} >19</p>
             <p style={{ fontSize : "18px", color : '#151D48'}} className="font-semibold">Total Ujian</p>
             <p>Dibuat Admin</p>
-
         </div>
         <div className=" rounded-2xl shadow min-h-56 p-4" style={{ background : '#FEF5E5'}} >
             <div className="rounded-2xl h-13 w-13 flex justify-center items-center mb-4"
@@ -84,7 +85,29 @@ const HomeGuru = () => {
         <h1 style={{ fontSize : '24px' }} >Ujian Aktif</h1>
         <h1 style={{ fontSize : '20px' , color : '#0081FF' }}  className="hover:underline transition duration-300" >Lihat Semua</h1>
     </div>
-    <div className="flex justify-center gap-5 mb-7">
+
+
+        <div className="flex flex-wrap gap-5 justify-start md:justify-center">
+  <DaftarCardUjian>
+    <DaftarCardUjian.Header image='/image/icon1.png' />
+    <DaftarCardUjian.Body title="Bab 2 Informatika" kondisi="Aktif" jumplahPertanyaan="30 Soal"/>
+    <DaftarCardUjian.Footer />
+  </DaftarCardUjian>
+  <DaftarCardUjian>
+    <DaftarCardUjian.Header image='/image/icon1.png' />
+    <DaftarCardUjian.Body title="Bab 2 Informatika" kondisi="Aktif" jumplahPertanyaan="30 Soal"/>
+    <DaftarCardUjian.Footer />
+  </DaftarCardUjian>
+    <DaftarCardUjian>
+    <DaftarCardUjian.Header image='/image/icon1.png' />
+    <DaftarCardUjian.Body title="Bab 2 Informatika" kondisi="Aktif" jumplahPertanyaan="30 Soal"/>
+    <DaftarCardUjian.Footer />
+  </DaftarCardUjian>
+  {/* dst... */}
+</div>
+
+
+    {/* <div className="flex justify-center gap-5 mb-7">
         <section className="rounded p-5 bg-white group overflow-hidden transition-all duration-500 hover:scale-105" style={{ width: '430px' }}>
             <div className="flex items-center justify-center rounded mb-3"  style={{ background : '#D5EDFF' }} >
                 <img src="/image/book1.png" alt="" className="mb-4 group-hover:scale-110 transition-all duration-300"/>
@@ -97,39 +120,35 @@ const HomeGuru = () => {
             </div>
             <p className="text-sm mb-3" style={{ color : '#A9A9A9' }}>25 Pertanyaan</p>
             <div className="flex justify-between items-center gap-2">
-                <Button text="Selengkapnya" />
+                <Button text="Selengkapnya" className="w-full rounded p-2 text-white" />
                 <button style={{ background : '#FFEAEB' }} className="w-10 h-10 rounded flex items-center justify-center cursor-pointer">
                     <FaRegTrashAlt style={{ color : '#D21F28' , width : '17.88854217529297px' , height : '20.12461280822754px'}} />
                 </button>
             </div>
         </section>
-    </div>
-    <div>
+    </div> */}
         <div className="flex items-center justify-between mb-4">
             <h1 style={{ fontSize : '24px' }}>Bank Soal</h1>
             <h1 style={{ fontSize : '20px' , color : '#0081FF' }}  className="hover:underline transition duration-300" >Lihat Semua</h1>
         </div>
-        <div className="flex items-center justify-center gap-5">
-        <section className="rounded p-3 bg-white group overflow-hidden transition-all duration-500 hover:scale-105" style={{ width: '300px' }}>
-            <div className="flex items-center justify-center rounded mb-3"  style={{ background : '#D5EDFF' }} >
-                <div className="bg-white p-3 my-13 rounded">
-                <img src="/image/bank-soal-icon.png" alt="" className=" group-hover:scale-110 transition-all duration-300"/>
-                </div>
-            </div>
-            <div className="flex justify-between items-center ">
-                <h1 className="text-lg font-semibold">Informatika</h1>
-                    <h1 style={{ color : "#D3D3D3" , fontSize : '13px' }} >2j lalu</h1>
-            </div>
-            <p className="text-sm mb-3" style={{ color : '#5E5E5E' }}>Sistem operasi dan sistem....</p>
-            <div className="flex justify-between items-center gap-2">
-                <Button text="Detail" />
-                <button style={{ background : '#FFEAEB' }} className="w-10 h-10 rounded flex items-center justify-center cursor-pointer">
-                    <FaRegTrashAlt style={{ color : '#D21F28' , width : '17.88854217529297px' , height : '20.12461280822754px'}} />
-                </button>
-            </div>
-        </section>
+        <div className="flex items-center justify-center gap-3">
+            <CardBankSoal>
+                <CardBankSoal.Header image="/image/bank-soal-icon.png" />
+                <CardBankSoal.Body title="Soal Informatika" time="3j lalu" description="Yahya a nya sepuluh" />
+                <CardBankSoal.Footer/>
+            </CardBankSoal>
+                        <CardBankSoal>
+                <CardBankSoal.Header image="/image/bank-soal-icon.png" />
+                <CardBankSoal.Body title="Soal Informatika" time="3j lalu" description="Yahya a nya sepuluh" />
+                <CardBankSoal.Footer/>
+            </CardBankSoal>
+                        <CardBankSoal>
+                <CardBankSoal.Header image="/image/bank-soal-icon.png" />
+                <CardBankSoal.Body title="Soal Informatika" time="3j lalu" description="Yahya a nya sepuluh" />
+                <CardBankSoal.Footer/>
+            </CardBankSoal>
         </div>
-    </div>
+
 </div>
             </main>
         </>

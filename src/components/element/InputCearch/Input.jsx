@@ -50,143 +50,143 @@ export const SearchInput = ({ placeholder = "Telusuri...", value, onChange, onSe
     );
 };
 
-export const EmailInput = ({ placeholder = "Masukkan email...", value, onChange, onSearch, name, disabled = false, className }) => {
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter' && onSearch && !disabled) {
-            onSearch(e.target.value);
-        }
-    };
+// export const EmailInput = ({ placeholder = "Masukkan email...", value, onChange, onSearch, name, disabled = false, className }) => {
+//     const handleKeyDown = (e) => {
+//         if (e.key === 'Enter' && onSearch && !disabled) {
+//             onSearch(e.target.value);
+//         }
+//     };
 
-    return (
-        <IconInput 
-            placeholder={placeholder}
-            type="email"
-            className={className}
-            value={value}
-            onChange={onChange}
-            onKeyDown={handleKeyDown}
-            name={name}
-            disabled={disabled}
-        >
-            <MdEmail size={20} />
-        </IconInput>
-    );
-};
+//     return (
+//         <IconInput 
+//             placeholder={placeholder}
+//             type="email"
+//             className={className}
+//             value={value}
+//             onChange={onChange}
+//             onKeyDown={handleKeyDown}
+//             name={name}
+//             disabled={disabled}
+//         >
+//             <MdEmail size={20} />
+//         </IconInput>
+//     );
+// };
 
-export const UserInput = ({ placeholder = "Cari pengguna...", value, onChange, onSearch, name, disabled = false, className }) => {
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter' && onSearch && !disabled) {
-            onSearch(e.target.value);
-        }
-    };
+// export const UserInput = ({ placeholder = "Cari pengguna...", value, onChange, onSearch, name, disabled = false, className }) => {
+//     const handleKeyDown = (e) => {
+//         if (e.key === 'Enter' && onSearch && !disabled) {
+//             onSearch(e.target.value);
+//         }
+//     };
 
-    return (
-        <IconInput 
-            placeholder={placeholder}
-            type="text"
-            className={className}
-            value={value}
-            onChange={onChange}
-            onKeyDown={handleKeyDown}
-            name={name}
-            disabled={disabled}
-        >
-            <FaUser size={18} />
-        </IconInput>
-    );
-};
+//     return (
+//         <IconInput 
+//             placeholder={placeholder}
+//             type="text"
+//             className={className}
+//             value={value}
+//             onChange={onChange}
+//             onKeyDown={handleKeyDown}
+//             name={name}
+//             disabled={disabled}
+//         >
+//             <FaUser size={18} />
+//         </IconInput>
+//     );
+// };
 
-export const StudentInput = ({ placeholder = "Cari siswa...", value, onChange, onSearch, name, disabled = false, className }) => {
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter' && onSearch && !disabled) {
-            onSearch(e.target.value);
-        }
-    };
+// export const StudentInput = ({ placeholder = "Cari siswa...", value, onChange, onSearch, name, disabled = false, className }) => {
+//     const handleKeyDown = (e) => {
+//         if (e.key === 'Enter' && onSearch && !disabled) {
+//             onSearch(e.target.value);
+//         }
+//     };
 
-    return (
-        <IconInput 
-            placeholder={placeholder}
-            type="text"
-            className={className}
-            value={value}
-            onChange={onChange}
-            onKeyDown={handleKeyDown}
-            name={name}
-            disabled={disabled}
-        >
-            <CiUser size={20} />
-        </IconInput>
-    );
-};
+//     return (
+//         <IconInput 
+//             placeholder={placeholder}
+//             type="text"
+//             className={className}
+//             value={value}
+//             onChange={onChange}
+//             onKeyDown={handleKeyDown}
+//             name={name}
+//             disabled={disabled}
+//         >
+//             <CiUser size={20} />
+//         </IconInput>
+//     );
+// };
 
-export const ExamInput = ({ placeholder = "Cari ujian...", value, onChange, onSearch, name, disabled = false, className }) => {
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter' && onSearch && !disabled) {
-            onSearch(e.target.value);
-        }
-    };
+// export const ExamInput = ({ placeholder = "Cari ujian...", value, onChange, onSearch, name, disabled = false, className }) => {
+//     const handleKeyDown = (e) => {
+//         if (e.key === 'Enter' && onSearch && !disabled) {
+//             onSearch(e.target.value);
+//         }
+//     };
 
-    return (
-        <IconInput 
-            placeholder={placeholder}
-            type="text"
-            className={className}
-            value={value}
-            onChange={onChange}
-            onKeyDown={handleKeyDown}
-            name={name}
-            disabled={disabled}
-        >
-            <HiOutlineAcademicCap size={20} />
-        </IconInput>
-    );
-};
+//     return (
+//         <IconInput 
+//             placeholder={placeholder}
+//             type="text"
+//             className={className}
+//             value={value}
+//             onChange={onChange}
+//             onKeyDown={handleKeyDown}
+//             name={name}
+//             disabled={disabled}
+//         >
+//             <HiOutlineAcademicCap size={20} />
+//         </IconInput>
+//     );
+// };
 
-export const BookInput = ({ placeholder = "Cari materi...", value, onChange, onSearch, name, disabled = false, className }) => {
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter' && onSearch && !disabled) {
-            onSearch(e.target.value);
-        }
-    };
+// export const BookInput = ({ placeholder = "Cari materi...", value, onChange, onSearch, name, disabled = false, className }) => {
+//     const handleKeyDown = (e) => {
+//         if (e.key === 'Enter' && onSearch && !disabled) {
+//             onSearch(e.target.value);
+//         }
+//     };
 
-    return (
-        <IconInput 
-            placeholder={placeholder}
-            type="text"
-            className={className}
-            value={value}
-            onChange={onChange}
-            onKeyDown={handleKeyDown}
-            name={name}
-            disabled={disabled}
-        >
-            <BiBook size={20} />
-        </IconInput>
-    );
-};
+//     return (
+//         <IconInput 
+//             placeholder={placeholder}
+//             type="text"
+//             className={className}
+//             value={value}
+//             onChange={onChange}
+//             onKeyDown={handleKeyDown}
+//             name={name}
+//             disabled={disabled}
+//         >
+//             <BiBook size={20} />
+//         </IconInput>
+//     );
+// };
 
-export const DocumentInput = ({ placeholder = "Cari dokumen...", value, onChange, onSearch, name, disabled = false, className }) => {
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter' && onSearch && !disabled) {
-            onSearch(e.target.value);
-        }
-    };
+// export const DocumentInput = ({ placeholder = "Cari dokumen...", value, onChange, onSearch, name, disabled = false, className }) => {
+//     const handleKeyDown = (e) => {
+//         if (e.key === 'Enter' && onSearch && !disabled) {
+//             onSearch(e.target.value);
+//         }
+//     };
 
-    return (
-        <IconInput 
-            placeholder={placeholder}
-            type="text"
-            className={className}
-            value={value}
-            onChange={onChange}
-            onKeyDown={handleKeyDown}
-            name={name}
-            disabled={disabled}
-        >
-            <HiOutlineDocumentText size={22} />
-        </IconInput>
-    );
-};
+//     return (
+//         <IconInput 
+//             placeholder={placeholder}
+//             type="text"
+//             className={className}
+//             value={value}
+//             onChange={onChange}
+//             onKeyDown={handleKeyDown}
+//             name={name}
+//             disabled={disabled}
+//         >
+//             <HiOutlineDocumentText size={22} />
+//         </IconInput>
+//     );
+// };
 
 // Default export tetap SearchInput
 export default SearchInput;

@@ -4,6 +4,7 @@ import { IoBookSharp } from "react-icons/io5";
 import { MdPayment } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
 import { MdOutlineExpandMore } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 
 const Sidebar = ({sidebarToggle}) => {
@@ -16,13 +17,19 @@ const Sidebar = ({sidebarToggle}) => {
             </div>
             <ul className="text-lg">
                 <li className="mb-7">
-                    <MdDashboard className="inline-block mr-2 w-7 h-7"/> Dashboard
+                    <Link to="/HomeGuru">
+                    <MdDashboard className="inline-block mr-2 w-7 h-7"/> </Link>
+                    <Link to="/HomeGuru">Dashboard</Link>
                 </li>
                 <li className="mb-7">
-                    <PiNotepadFill className="inline-block mr-2 w-7 h-7" /> Daftar Ujian
+                    <Link to="/DaftarUjian">
+                    <PiNotepadFill className="inline-block mr-2 w-7 h-7" /></Link>
+                    <Link to="/DaftarUjian">Daftar Ujian</Link>
                 </li>
                 <li className="mb-7">
-                    <IoBookSharp className="inline-block mr-2 w-7 h-7" /> Bank Soal
+                    <Link to="/BankSoal">
+                    <IoBookSharp className="inline-block mr-2 w-7 h-7" /> </Link>
+                    <Link to='/BankSoal'>Bank Soal</Link>
                 </li>
             </ul>
             <hr className="border-dashed border-t-2 border-gray-300" />
