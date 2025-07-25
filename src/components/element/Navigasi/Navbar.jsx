@@ -1,7 +1,20 @@
 import { RxHamburgerMenu } from "react-icons/rx";
-import { MdOutlineNotificationsActive } from "react-icons/md";
+import { useState, useEffect } from "react";
 
 const Navbar = ({sidebarToggle , setSidebarToggle}) => {
+     const [user, setUser] = useState(null);
+    
+      useEffect(() => {
+       
+        const userData = localStorage.getItem('user');
+        if (userData) {
+          try {
+            setUser(JSON.parse(userData));
+          } catch (error) {
+            console.error('Error parsing user data:', error);
+          }
+        }
+      }, []);
     return (
         <>
                 <div className="flex justify-between items-center p-8 shadow sticky top-0">
@@ -10,7 +23,6 @@ const Navbar = ({sidebarToggle , setSidebarToggle}) => {
                             onClick={() => setSidebarToggle(!sidebarToggle)} />
                     </div>
                     <div className="flex items-center justify-center">
-                        <MdOutlineNotificationsActive className="w-10 h-10 mr-6 text-blue-400"/>
                         <img 
                             src="/image/pfp.jpg" 
                             alt="Profile" 
@@ -18,8 +30,8 @@ const Navbar = ({sidebarToggle , setSidebarToggle}) => {
                         />
 
                     <div className="ml-6">
-                        <h1 className="font-semibold">Mrs.Wong Ireng</h1>
-                        <h1>Sybau@gmail.com</h1>
+                        <h1 className="font-semibold">{user?.name || 'Loading...'}</h1>
+                        <h1>{user?.email || 'Loading...'}</h1>
                     </div>
                     </div>
                 </div>

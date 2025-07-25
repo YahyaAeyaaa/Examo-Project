@@ -99,7 +99,7 @@ const FromRegister = () => {
                 
                 {selectedRole && (
                     <p className="text-sm mt-2 text-blue-600 font-medium">
-                        Role dipilih: {selectedRole === 'siswa' ? 'Siswa' : 'Guru'}
+                        Role dipilih: {selectedRole === 'user' ? 'Siswa' : 'Guru'}
                     </p>
                 )}
             </div>

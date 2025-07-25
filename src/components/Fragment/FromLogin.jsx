@@ -3,9 +3,11 @@
     import Index from "../element/input/index";
     import Button from "../element/button/button";
     import { apiLogin, setAuthToken } from "../../config/api";
+    
 
     function FromLogin() {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         email: "",
         password: ""
@@ -18,6 +20,7 @@
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
         const response = await apiLogin(formData);
 
@@ -26,7 +29,11 @@
 
         // Simpan token ke localStorage
         localStorage.setItem("authToken", token);
+        localStorage.setItem("userRole", user.role)
+
+        localStorage.setItem("user", JSON.stringify(user));
         setAuthToken(token); // jika pakai axios config untuk auto-inject
+
 
         // Arahkan berdasarkan role
         switch (user.role) {
@@ -36,14 +43,21 @@
             case "user":
             navigate("/HomeSiswa");
             break;
+            case "admin":
+            navigate("/HomeAdmin");
+            break;
             default:
             console.warn("Role tidak dikenali:", user.role);
             alert("Akun tidak memiliki role yang valid.");
         }
 
+         setLoading(true);
+
         } catch (error) {
         console.error("Login gagal:", error);
         alert("Email atau password salah!");
+        } finally {
+            setLoading(false); 
         }
     };
 
@@ -67,7 +81,7 @@
             Lupa Password?
         </p>
         <Button 
-            text="Login" 
+            text={loading ? "Loading..." : "Login"} 
             type="submit"
             className="w-full rounded-2xl p-3 text-white bg-blue-500 hover:bg-blue-600 transition-all duration-200"
         />
