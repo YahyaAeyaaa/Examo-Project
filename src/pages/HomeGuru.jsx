@@ -1,4 +1,3 @@
-import { useState } from "react"
 import Sidebar from "../components/element/Navigasi/Sidebar"
 import Dashboard from "../components/element/Navigasi/Dashoard"
 import { RiVipCrownFill } from "react-icons/ri";  
@@ -15,19 +14,10 @@ import CardBankSoal from "../components/Fragment/BankSoalCard";
 
 
 const HomeGuru = () => {
-    const [sidebarToggle, setSidebarToggle] = useState(false);
     return (
         <>
-        <div className="flex">
-            <Sidebar 
-                sidebarToggle={sidebarToggle}
-            />
-            <Dashboard 
-                sidebarToggle={sidebarToggle}
-                setSidebarToggle={setSidebarToggle}
-            />
-            </div>
-            <main className={`bg-gray-100 min-h-screen transition-all duration-300 ${sidebarToggle ? "ml-0" : "ml-64"}`}>
+        
+            
                 {/* Header Section dengan Search dan Premium Badge */}
                 <div className="lg:flex lg:items-center lg:justify-between lg:p-8 sm:block">
 
@@ -104,29 +94,8 @@ const HomeGuru = () => {
     <DaftarCardUjian.Footer />
   </DaftarCardUjian>
   {/* dst... */}
-</div>
+        </div>
 
-
-    {/* <div className="flex justify-center gap-5 mb-7">
-        <section className="rounded p-5 bg-white group overflow-hidden transition-all duration-500 hover:scale-105" style={{ width: '430px' }}>
-            <div className="flex items-center justify-center rounded mb-3"  style={{ background : '#D5EDFF' }} >
-                <img src="/image/book1.png" alt="" className="mb-4 group-hover:scale-110 transition-all duration-300"/>
-            </div>
-            <div className="flex justify-between items-center ">
-                <h1 className="text-lg font-semibold">Ujian Bab 2</h1>
-                <div className="p-2 rounded-full w-20 h-9 flex items-center justify-center " style={{ background : '#E9FFF2' }} >
-                    <h1 style={{ color : "#2ECC71" }} >Aktif</h1>
-                </div>
-            </div>
-            <p className="text-sm mb-3" style={{ color : '#A9A9A9' }}>25 Pertanyaan</p>
-            <div className="flex justify-between items-center gap-2">
-                <Button text="Selengkapnya" className="w-full rounded p-2 text-white" />
-                <button style={{ background : '#FFEAEB' }} className="w-10 h-10 rounded flex items-center justify-center cursor-pointer">
-                    <FaRegTrashAlt style={{ color : '#D21F28' , width : '17.88854217529297px' , height : '20.12461280822754px'}} />
-                </button>
-            </div>
-        </section>
-    </div> */}
         <div className="flex items-center justify-between mb-4">
             <h1 style={{ fontSize : '24px' }}>Bank Soal</h1>
             <h1 style={{ fontSize : '20px' , color : '#0081FF' }}  className="hover:underline transition duration-300" >Lihat Semua</h1>
@@ -150,7 +119,7 @@ const HomeGuru = () => {
         </div>
 
 </div>
-            </main>
+           
         </>
     );
 };

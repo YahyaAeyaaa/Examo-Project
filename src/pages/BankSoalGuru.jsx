@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Sidebar from "../components/element/Navigasi/Sidebar";
 import Dashboard from "../components/element/Navigasi/Dashoard";
 import Button from "../components/element/button/button";
@@ -9,19 +8,9 @@ import CardBankSoal from "../components/Fragment/BankSoalCard";
 
 
 const BankSoalGuru = () => {
-    const [sidebarToggle, setSidebarToggle] = useState(false);
     return (
         <>
-                <div className="flex">
-            <Sidebar 
-                sidebarToggle={sidebarToggle}
-            />
-            <Dashboard 
-                sidebarToggle={sidebarToggle}
-                setSidebarToggle={setSidebarToggle}
-            />
-            </div>
-            <main className={`bg-gray-100 min-h-screen transition-all duration-300 ${sidebarToggle ? "ml-0" : "ml-64"}`}>
+               
                 <div className="p-7">
                     <div className="flex justify-between items-center mb-4">
                     <div className="">
@@ -69,7 +58,6 @@ const BankSoalGuru = () => {
                             <CardBankSoal.Footer/>
                         </CardBankSoal>
                     </div>
-            </main>
         </>
     )   
 }
