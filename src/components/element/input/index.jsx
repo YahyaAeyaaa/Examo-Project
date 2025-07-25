@@ -1,7 +1,7 @@
 import Input from "./input"
 
 const Index = (props) => {
-    const { type, placeholder, name, value, onChange, required, className } = props
+    const { type, placeholder, name, value, onChange, required, className} = props
     return (
         <>
         <Input 
@@ -10,7 +10,7 @@ const Index = (props) => {
             name={name}
             value={value}
             onChange={onChange}
-            required={required}
+            required={required} 
             className={className} // terusin ke Input
         />
         </>

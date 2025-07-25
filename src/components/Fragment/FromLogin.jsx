@@ -33,7 +33,7 @@
             case "guru":
             navigate("/HomeGuru");
             break;
-            case "siswa":
+            case "user":
             navigate("/HomeSiswa");
             break;
             default:

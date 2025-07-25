@@ -1,5 +1,5 @@
 const Input = (props) => {
-        const { type, placeholder, name, value, onChange, required , className} = props
+        const { type, placeholder, name, value, onChange, required , className } = props
     return (
         <>
         <input 
@@ -9,8 +9,7 @@ const Input = (props) => {
         value={value || ''}
         onChange={onChange}
         required={required}
-        className={`p-4 bg-blue-50 w-full rounded-2xl mb-5 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-400 ${className}`}
-            /> 
+        className={`p-4 w-full rounded-2xl mb-4 overflow-hidden ${className}`}></input>
         </>
     )
 }

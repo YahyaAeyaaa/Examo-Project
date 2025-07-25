@@ -13,6 +13,7 @@ import DaftarUjianGuru from './pages/DaftarUjianGuru.jsx'
 import WarningEditGuru from './components/Fragment/WarningEditGuru.jsx'
 import CardUjian from './components/Fragment/DaftarUjianCard.jsx'
 import TambahUjianPage from './pages/TambahUjianPage.jsx'
+import HomeSiswa from './pages/HomeSiswa.jsx'
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
   {
     path : '/TambahUjian',
     element : <TambahUjianPage />
+  },
+  {
+    path : '/HomeSiswa',
+    element : <HomeSiswa />
   }
 ])
 
