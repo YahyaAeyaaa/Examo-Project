@@ -26,7 +26,7 @@ const Header = (props) => {
 }
 
 const Body = (props) => {
-    const { title , kondisi , jumplahPertanyaan } = props
+    const { title , kondisi , jumlahPertanyaan } = props
     return (
         <>
             <div className="flex justify-between items-center">
@@ -35,7 +35,7 @@ const Body = (props) => {
                 <h1 style={{ color : "#2ECC71" }} >{kondisi}</h1>
                 </div>
             </div>
-            <p className="text-sm mb-3" style={{ color : '#A9A9A9' }}>{jumplahPertanyaan}</p>
+            <p className="text-sm mb-3" style={{ color : '#A9A9A9' }}>{jumlahPertanyaan}</p>
         </>
     )
 }

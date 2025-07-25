@@ -1,0 +1,11 @@
+import React from 'react'
+
+const ExamListIcon = () => {
+  return (
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.875 4.875H21.9375V23.5625H4.0625V4.875H8.125V6.5H17.875V4.875ZM7.3125 13H18.6875V11.375H7.3125V13ZM7.3125 19.5H18.6875V17.875H7.3125V19.5ZM9.75 4.875V2.4375H16.25V4.875H9.75Z" fill="currentColor"/>
+    </svg>
+  )
+}
+
+export default ExamListIcon

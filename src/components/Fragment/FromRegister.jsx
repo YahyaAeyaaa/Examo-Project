@@ -48,7 +48,7 @@ const FromRegister = () => {
         try {
             const registerData = {
                 ...formData,
-                role: selectedRole === 'siswa' ? 'user' : 'guru'
+                role: selectedRole === 'user' ? 'user' : 'guru'
             };
             
             const response = await apiRegister(registerData);
@@ -71,9 +71,9 @@ const FromRegister = () => {
                 <div className="flex justify-start items-center gap-4 ">
                     <button 
                         type="button"
-                        onClick={() => setSelectedRole('siswa')}
+                        onClick={() => setSelectedRole('user')}
                         className={`rounded-2xl p-4 flex group items-center justify-center transition-all duration-200 hover:shadow-md ${
-                            selectedRole === 'siswa' 
+                            selectedRole === 'user' 
                                 ? 'ring-2 ring-blue-500 shadow-lg' 
                                 : 'hover:ring-1 hover:ring-blue-300'
                         }`}
@@ -99,7 +99,7 @@ const FromRegister = () => {
                 
                 {selectedRole && (
                     <p className="text-sm mt-2 text-blue-600 font-medium">
-                        Role dipilih: {selectedRole === 'siswa' ? 'Siswa' : 'Guru'}
+                        Role dipilih: {selectedRole === 'user' ? 'Siswa' : 'Guru'}
                     </p>
                 )}
             </div>

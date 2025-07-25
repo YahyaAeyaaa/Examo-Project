@@ -66,9 +66,11 @@ const Sidebar = ({sidebarToggle}) => {
                         <div className="flex items-center space-x-3 text-gray-600">
                             <span>Kredensial</span>
                         </div>
-                        <div className="flex items-center space-x-3 text-gray-600">
-                            <span>Profile</span>
-                        </div>
+                        <Link to="/SettingsGuru">
+                            <div className="flex items-center space-x-3 text-gray-600 hover:text-blue-500 cursor-pointer">
+                                <span>Profile</span>
+                            </div>
+                        </Link>
                     </div>
                 </div>
             </details>
