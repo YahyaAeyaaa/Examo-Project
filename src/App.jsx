@@ -13,6 +13,9 @@ import ExamListPage from './pages/siswa_pages/ExamListPage';
 import SettingsPage from './pages/siswa_pages/SettingsPage';
 import ProtectedRoute from './components/route/ProtectedRoute';
 import ExamDetail from './pages/siswa_pages/ExamDetail';
+import RiwayatLangganan from './pages/RiwayatLangganan';
+import PaketLangganan from './pages/PaketLangganan';
+import KredensialSettings from './pages/KredensialSettings';
 // import HomeAdmin from './pages/admin_pages/HomeAdmin';
 
 
@@ -29,7 +32,10 @@ function App() {
         <Route path="/BankSoal" element={<BankSoalGuru />} />
         <Route path="/DaftarUjian" element={<DaftarUjianGuru />} />
         <Route path="/TambahUjian" element={<TambahUjianPage />} />
-         <Route path="/SettingsGuru" element={<SettingsPage />} />
+        <Route path="/SettingsGuru" element={<SettingsPage />} />
+        <Route path="/SettingsGuru/kredensial" element={<KredensialSettings />} />
+        <Route path="/LanggananGuru/paket" element={<PaketLangganan />} />
+        <Route path="/LanggananGuru/riwayat" element={<RiwayatLangganan />} />
       </Route>
       </Route>
 

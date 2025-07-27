@@ -1,42 +1,28 @@
-import { RxHamburgerMenu } from "react-icons/rx";
-import { useState, useEffect } from "react";
+import React from 'react'
+import { AlignJustify } from 'lucide-react'
+import UserProfile from '../../navbar/section/UserProfile'
 
-const Navbar = ({sidebarToggle , setSidebarToggle}) => {
-     const [user, setUser] = useState(null);
-    
-      useEffect(() => {
-       
-        const userData = localStorage.getItem('user');
-        if (userData) {
-          try {
-            setUser(JSON.parse(userData));
-          } catch (error) {
-            console.error('Error parsing user data:', error);
-          }
-        }
-      }, []);
-    return (
-        <>
-                <div className="flex justify-between items-center p-8 shadow sticky top-0">
-                    <div>
-                        <RxHamburgerMenu className="w-8 h-8" 
-                            onClick={() => setSidebarToggle(!sidebarToggle)} />
-                    </div>
-                    <div className="flex items-center justify-center">
-                        <img 
-                            src="/image/pfp.jpg" 
-                            alt="Profile" 
-                            className="w-15 h-15 rounded-full object-cover shadow"
-                        />
-
-                    <div className="ml-6">
-                        <h1 className="font-semibold">{user?.name || 'Loading...'}</h1>
-                        <h1>{user?.email || 'Loading...'}</h1>
-                    </div>
-                    </div>
-                </div>
-        </>
-    )
+const TopBar = ({ isSidebarOpen, toggleSidebar, isMobile }) => {
+  const topbarStyle = {     
+  width: isMobile 
+    ? '100%' 
+    : isSidebarOpen 
+      ? 'calc(100% - 242px)' 
+      : 'calc(100% - 64px)',  
+  marginLeft: isMobile 
+    ? '0' 
+    : isSidebarOpen 
+      ? '242px'
+      : '64px'  
+}
+  return (
+    <nav className="fixed top-0 h-20 flex justify-between items-center px-4 drop-shadow-sm bg-white z-50 transition-all duration-300" style={topbarStyle}>
+      <button onClick={toggleSidebar} className="p-2 hover:bg-gray-100 rounded-lg transition-colors" aria-label="Toggle Sidebar">
+        <AlignJustify className='w-[26px] h-[26px]' />
+      </button>
+      <UserProfile />
+    </nav>
+  )
 }
 
-export default Navbar
+export default TopBar

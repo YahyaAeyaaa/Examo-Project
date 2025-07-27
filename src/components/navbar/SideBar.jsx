@@ -16,7 +16,7 @@ const SideBar = ({ isSidebarOpen, isMobile, toggleSidebar }) => {
           <h1 className={`text-[34px] font-bold text-primary-blue tracking-custom transition-all duration-300 ${!isSidebarOpen && !isMobile ? 'text-[24px] overflow-hidden whitespace-nowrap' : ''}`}>
             {!isSidebarOpen && !isMobile ? 'Ex' : 'Examo'}
           </h1>
-                     
+                  
           <nav className="space-y-4">
             <SidebarSection
               title={!isSidebarOpen && !isMobile ? 'Fitur' : 'Fitur Examo'}

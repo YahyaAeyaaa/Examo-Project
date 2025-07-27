@@ -39,6 +39,17 @@
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`
     }
 
+        // 6. Fungsi untuk get semua Bank Ujian
+    export const getAllBankUjian = () => {
+    return api.get('/bankujian')
+}
+
+        // 7. Ambil semua data bank soal
+    export const getBankSoal = () => {
+    return api.get('/bank-soal')
+    }
+
+
         // Interceptor untuk request - inject token otomatis
     api.interceptors.request.use((config) => {
     const token = localStorage.getItem('authToken')

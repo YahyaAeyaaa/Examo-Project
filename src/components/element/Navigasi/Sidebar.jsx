@@ -1,83 +1,67 @@
+import SidebarSection from './sections/SidebarSection';
 import { MdDashboard } from "react-icons/md";
 import { PiNotepadFill } from "react-icons/pi";
 import { IoBookSharp } from "react-icons/io5";
 import { MdPayment } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
-import { MdOutlineExpandMore } from "react-icons/md";
-import { Link } from "react-router-dom";
 
+const SideBar = ({ isSidebarOpen, isMobile, toggleSidebar }) => {
+  return (
+    <>
+      <aside className={`fixed left-0 top-0 h-screen bg-white drop-shadow-sm flex flex-col items-center z-50 transition-all duration-300
+          ${isMobile 
+            ? `w-[242px] ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}` 
+            : `${isSidebarOpen ? 'w-[242px]' : 'w-[64px]'}`
+          }`}>
+        <div className={`flex flex-col space-y-4 pt-4 transition-all duration-300 ${isMobile ? 'w-[180px]' : isSidebarOpen ? 'w-[180px]' : 'w-[40px]'}`}>
+          <h1 className={`text-[34px] font-bold text-primary-blue tracking-custom transition-all duration-300 ${!isSidebarOpen && !isMobile ? 'text-[24px] overflow-hidden whitespace-nowrap' : ''}`}>
+            {!isSidebarOpen && !isMobile ? 'Ex' : 'Examo'}
+          </h1>
+                  
+          <nav className="space-y-4">
+            <SidebarSection
+              title={!isSidebarOpen && !isMobile ? 'Fitur' : 'Fitur Examo'}
+              items={[
+                { icon: <MdDashboard />, label: 'Dashboard', path: '/HomeGuru' },
+                { icon: <PiNotepadFill />, label: 'Daftar Ujian', path: '/DaftarUjian' },
+                { icon: <IoBookSharp />, label: 'Bank Soal', path: '/BankSoal' },
+              ]}
+              collapsed={!isSidebarOpen && !isMobile}
+            />
+                 
+            <div className={`w-full h-[1px] bg-[linear-gradient(to_right,_#D5D5D5_5px,_transparent_5px)] bg-[length:10px_1px] bg-repeat-x my-6 transition-all duration-300 ${!isSidebarOpen && !isMobile ? 'opacity-50' : ''}`}></div>
+             
+            <SidebarSection
+              title={!isSidebarOpen && !isMobile ? 'Sistem' : 'Sistem'}
+              items={[
+                { 
+                  icon: <MdPayment />, 
+                  label: 'Langganan', 
+                  children: [
+                    { label: 'Paket', path: '/LanggananGuru/paket' },
+                    { label: 'Riwayat', path: '/LanggananGuru/riwayat' }
+                  ]
+                },
+                { 
+                  icon: <IoMdSettings />, 
+                  label: 'Pengaturan', 
+                  children: [
+                    { label: 'Kredensial', path: '/SettingsGuru/kredensial' },
+                    { label: 'Profile', path: '/SettingsGuru' }
+                  ]
+                },
+              ]}
+              collapsed={!isSidebarOpen && !isMobile}
+            />
+          </nav>
+        </div>
+      </aside>
 
-const Sidebar = ({sidebarToggle}) => {
-    return (
-        <>
-        <div className={`transition-all duration-300  ${sidebarToggle ? "hidden" : "block"} w-64 fixed h-full p-8 bg-white filter drop-shadow-lg`}>
-            <div>
-                <h1 className="font-bold text-4xl text-blue-500 mb-8">Examo</h1>
-                <p className="mb-7">Fitur Examo</p>
-            </div>
-            <ul className="text-lg">
-                <li className="mb-7">
-                    <Link to="/HomeGuru">
-                    <MdDashboard className="inline-block mr-2 w-7 h-7"/> </Link>
-                    <Link to="/HomeGuru">Dashboard</Link>
-                </li>
-                <li className="mb-7">
-                    <Link to="/DaftarUjian">
-                    <PiNotepadFill className="inline-block mr-2 w-7 h-7" /></Link>
-                    <Link to="/DaftarUjian">Daftar Ujian</Link>
-                </li>
-                <li className="mb-7">
-                    <Link to="/BankSoal">
-                    <IoBookSharp className="inline-block mr-2 w-7 h-7" /> </Link>
-                    <Link to='/BankSoal'>Bank Soal</Link>
-                </li>
-            </ul>
-            <hr className="border-dashed border-t-2 border-gray-300" />
-            <p className="my-5 text-slate-700" >Sistem</p>
-            <details className="group">
-                <summary className="flex items-center justify-between cursor-pointer p-2 space-x-2 ">
-                        <MdPayment className="w-7 h-7"/>
-                            <span>Langganan</span>
-                            <MdOutlineExpandMore className="group-open:rotate-180 transition-transform" />
-                </summary>
-    
-                <div className="flex mt-2">
-                    <div className="border-l-2 border-dashed border-gray-300 ml-2 mr-4 h-20"></div>
-                    <div className="space-y-3 py-2">
-                        <div className="flex items-center space-x-3 text-gray-600">
-                            <span>Paket</span>
-                        </div>
-                        <div className="flex items-center space-x-3 text-gray-600">
-                            <span>Riwayat</span>
-                        </div>
-                    </div>
-                </div>
-            </details>
-            <details className="group">
-                <summary className="flex items-center justify-between cursor-pointer p-2 space-x-2 ">
-                        <IoMdSettings className="w-7 h-7"/>
-                            <span>Pengaturan</span>
-                            <MdOutlineExpandMore className="group-open:rotate-180 transition-transform" />
-                </summary>
-    
-                <div className="flex mt-2">
-                    <div className="border-l-2 border-dashed border-gray-300 ml-2 mr-4 h-20"></div>
-                    <div className="space-y-3 py-2">
-                        <div className="flex items-center space-x-3 text-gray-600">
-                            <span>Kredensial</span>
-                        </div>
-                        <Link to="/SettingsGuru">
-                            <div className="flex items-center space-x-3 text-gray-600 hover:text-blue-500 cursor-pointer">
-                                <span>Profile</span>
-                            </div>
-                        </Link>
-                    </div>
-                </div>
-            </details>
-            
-                </div>
-        </>
-    )
+      {isMobile && isSidebarOpen && (
+        <div className="fixed inset-0 bg-black/50 z-40 cursor-pointer" onClick={() => {toggleSidebar()}}/>
+      )}
+    </>
+  )
 }
 
-export default Sidebar
+export default SideBar;

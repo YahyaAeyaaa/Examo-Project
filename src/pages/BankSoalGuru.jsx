@@ -1,7 +1,6 @@
-import Sidebar from "../components/element/Navigasi/Sidebar";
-import Dashboard from "../components/element/Navigasi/Dashoard";
+
 import Button from "../components/element/button/button";
-import SearchInput from "../components/element/InputCearch/Input";
+import SearchInput from "../components/dashboardGuru/InputSearch";
 import FilterDate from "../components/element/filter/FilterDate";
 import { FiDownload } from "react-icons/fi";
 import CardBankSoal from "../components/Fragment/BankSoalCard";

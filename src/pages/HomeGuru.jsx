@@ -1,148 +1,130 @@
-import Sidebar from "../components/element/Navigasi/Sidebar"
-import Dashboard from "../components/element/Navigasi/Dashoard"
-import { RiVipCrownFill } from "react-icons/ri";  
-import { RiStickyNoteAddFill } from "react-icons/ri";
-import Button from "../components/element/button/button";
-import { FaRegTrashAlt } from "react-icons/fa";
-import SearchInput from "../components/element/InputCearch/Input";
+import SearchInput from "../components/dashboardGuru/InputSearch";
 import DaftarCardUjian from "../components/Fragment/DaftarUjianCard";
 import CardBankSoal from "../components/Fragment/BankSoalCard";
+import HelloCardGuru from "../components/dashboardGuru/HelloCardGuru";
+import TotalUjianCard from "../components/dashboardGuru/TotalUjianCard";
+import TotalSiswaCard from "../components/dashboardGuru/TotalSiswaCard";
+import PremiumBadge from "../components/dashboardGuru/PremiumBadge";
 
-
-
-
-
+// Dummy data - nanti ganti sama data dari API/database
+const contohUjian = [
+    {
+        id: 1,
+        title: "Ujian Bab 2 matematika Susah Banget Jir",
+        subject: "Matematika",
+        questions: 25,
+        status: "aktif",
+        image: '/image/icon1.png'
+    },
+    {
+        id: 2, 
+        title: "Quiz Bab 5",
+        subject: "Bahasa Indonesia",
+        questions: 20,
+        status: "berlangsung",
+        image: '/image/icon1.png'
+    },
+    {
+        id: 3,
+        title: "Ujian Semester",
+        subject: "Fisika", 
+        questions: 30,
+        status: "nonaktif",
+        image: '/image/icon1.png'
+    }
+];
 
 const HomeGuru = () => {
+    // Filter hanya ujian yang aktif untuk ditampilkan di home
+    const ujianAktif = contohUjian.filter(ujian => ujian.status === "aktif");
+    
+    const handleDeleteUjian = (ujianId) => {
+        console.log("Delete ujian dengan ID:", ujianId);
+        // Implement delete logic here
+    };
+
     return (
-        <>
-        
-            
-                {/* Header Section dengan Search dan Premium Badge */}
-                <div className="lg:flex lg:items-center lg:justify-between lg:p-8 sm:block">
-
-                        <SearchInput />
-                        
-                    <div className="bg-amber-50 p-4 rounded-lg shadow-sm"> 
-                        <div className="flex items-center gap-2 mb-1">
-                            <h1 className="text-amber-600 font-medium">Akun Premium</h1>
-                            <RiVipCrownFill className="text-amber-400"/>
-                        </div>
-                        <p className="text-sm text-gray-600">Berakhir pada : 30 Juli 2025</p>
-                    </div>
+        <div className="px-4 sm:px-6 lg:px-8 py-6 lg:pt-8 max-w-[1400px] mx-auto">
+            {/* Header Section dengan Search dan Premium Badge */}
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-8 mb-8 lg:mb-10">
+                <div className="flex-1 lg:max-w-md">
+                    <SearchInput />
                 </div>
-                {/* Main Content Area */}
-                <div className="px-8 pb-8">
-    {/* Stats Cards */}
-    <div className="grid grid-cols-4 gap-10 md:cols-span-3 sm:cols-span-1 mb-10">
-        <div 
-        className="rounded-2xl shadow min-h-56 md:col-span-2 sm:col-span-1 p-11 flex justify-between items-start" 
-        style={{ background: 'linear-gradient(to right, #FFFFFF, #D8EFFF)' }}>
-            {/* Text Content */}
-            <div className="flex-1 pr-4">
-                <h1 className="text-2xl font-semibold mb-3" style={{ color : '#2A2A2A' }}>Halo, Sobat Examno!</h1>
-                <p className="text-lg mb-2" style={{ color : '#2A2A2A' }}>apa yang akan kamu lakukan hari ini?</p>
-                <p className="text-wrap" style={{ color : '#2A2A2A' }}>nikmati berbagai fitur menarik dan hebat dari examo. Buat ujianmu jadi gampang!</p>
+                <PremiumBadge />
             </div>
-            
-            {/* Image */}
-            <div className="flex-shrink-0">
-                <img src="/image/icon1.png" alt="" className="w-auto h-auto"/>
+
+            {/* Stats Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8 lg:mb-12">
+                <div className="md:col-span-2">
+                    <HelloCardGuru />
+                </div>
+                <TotalUjianCard totalUjian={contohUjian.length} />
+                <TotalSiswaCard totalSiswa={60} />
+            </div>
+
+            {/* Ujian Aktif Section */}
+            <div className="mb-8 lg:mb-12">
+                <div className="flex justify-between items-center mb-6 lg:mb-8">
+                    <h1 className="text-lg lg:text-2xl font-medium text-black">Ujian Aktif</h1>
+                    <h1 className="text-sm lg:text-xl text-[#0081FF] hover:underline cursor-pointer transition duration-300">
+                        Lihat Semua
+                    </h1>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+                    {ujianAktif.length > 0 ? (
+                        ujianAktif.map((ujian) => (
+                            <DaftarCardUjian key={ujian.id}>
+                                <DaftarCardUjian.Header image={ujian.image} />
+                                <DaftarCardUjian.Body 
+                                    title={ujian.title} 
+                                    kondisi={ujian.status} 
+                                    jumlahPertanyaan={`${ujian.questions} Soal`}
+                                />
+                                <DaftarCardUjian.Footer 
+                                    examData={ujian}
+                                    onDelete={handleDeleteUjian}
+                                    showDelete={false} // Hide delete button di home
+                                />
+                            </DaftarCardUjian>
+                        ))
+                    ) : (
+                        <div className="col-span-full text-center py-8">
+                            <p className="text-gray-500">Tidak ada ujian aktif saat ini</p>
+                        </div>
+                    )}
+                </div>
+            </div>
+
+            {/* Bank Soal Section */}
+            <div className="mb-8">
+                <div className="flex items-center justify-between mb-6 lg:mb-8">
+                    <h1 className="text-lg lg:text-2xl font-medium text-black">Bank Soal</h1>
+                    <h1 className="text-sm lg:text-xl text-[#0081FF] hover:underline cursor-pointer transition duration-300">
+                        Lihat Semua
+                    </h1>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+                    <CardBankSoal>
+                        <CardBankSoal.Header image="/image/bank-soal-icon.png" />
+                        <CardBankSoal.Body title="Soal Informatika" time="3j lalu" description="Yahya a nya sepuluh" />
+                        <CardBankSoal.Footer/>
+                    </CardBankSoal>
+                    <CardBankSoal>
+                        <CardBankSoal.Header image="/image/bank-soal-icon.png" />
+                        <CardBankSoal.Body title="Soal Informatika" time="3j lalu" description="Yahya a nya sepuluh" />
+                        <CardBankSoal.Footer/>
+                    </CardBankSoal>
+                    <CardBankSoal>
+                        <CardBankSoal.Header image="/image/bank-soal-icon.png" />
+                        <CardBankSoal.Body title="Soal Informatika" time="3j lalu" description="Yahya a nya sepuluh" />
+                        <CardBankSoal.Footer/>
+                    </CardBankSoal>
+                </div>
             </div>
         </div>
-        <div className=" rounded-2xl shadow min-h-56 p-4" style={{background : '#FBF2EF'}}>
-            <div className="rounded-2xl h-13 w-13 flex justify-center items-center mb-4"
-            style={{ background : '#FE9479' }}
-            >
-                <RiStickyNoteAddFill className="text-white w-7 h-7"/>
-            </div>
-            <p className="font-semibold" style={{ fontSize : '32px' }} >19</p>
-            <p style={{ fontSize : "18px", color : '#151D48'}} className="font-semibold">Total Ujian</p>
-            <p>Dibuat Admin</p>
-        </div>
-        <div className=" rounded-2xl shadow min-h-56 p-4" style={{ background : '#FEF5E5'}} >
-            <div className="rounded-2xl h-13 w-13 flex justify-center items-center mb-4"
-            style={{ background : '#FEC53D' }}
-            >
-                <img src="/image/people.png" alt="" />
-            </div>
-            <p className="font-semibold" style={{ fontSize : '32px' }} >60</p>
-            <p style={{ fontSize : "18px", color : '#151D48'}} className="font-semibold" >Total Siswa</p>
-            <p>Mengikuti Ujian</p>
-        </div>
-    </div>
-    <div className="flex justify-between mb-4">
-        <h1 style={{ fontSize : '24px' }} >Ujian Aktif</h1>
-        <h1 style={{ fontSize : '20px' , color : '#0081FF' }}  className="hover:underline transition duration-300" >Lihat Semua</h1>
-    </div>
-
-
-        <div className="flex flex-wrap gap-5 justify-start md:justify-center">
-  <DaftarCardUjian>
-    <DaftarCardUjian.Header image='/image/icon1.png' />
-    <DaftarCardUjian.Body title="Bab 2 Informatika" kondisi="Aktif" jumplahPertanyaan="30 Soal"/>
-    <DaftarCardUjian.Footer />
-  </DaftarCardUjian>
-  <DaftarCardUjian>
-    <DaftarCardUjian.Header image='/image/icon1.png' />
-    <DaftarCardUjian.Body title="Bab 2 Informatika" kondisi="Aktif" jumplahPertanyaan="30 Soal"/>
-    <DaftarCardUjian.Footer />
-  </DaftarCardUjian>
-    <DaftarCardUjian>
-    <DaftarCardUjian.Header image='/image/icon1.png' />
-    <DaftarCardUjian.Body title="Bab 2 Informatika" kondisi="Aktif" jumplahPertanyaan="30 Soal"/>
-    <DaftarCardUjian.Footer />
-  </DaftarCardUjian>
-  {/* dst... */}
-        </div>
-
-        <div className="flex items-center justify-between mb-4">
-            <h1 style={{ fontSize : '24px' }}>Bank Soal</h1>
-            <h1 style={{ fontSize : '20px' , color : '#0081FF' }}  className="hover:underline transition duration-300" >Lihat Semua</h1>
-        </div>
-        <div className="flex items-center justify-center gap-3">
-            <CardBankSoal>
-                <CardBankSoal.Header image="/image/bank-soal-icon.png" />
-                <CardBankSoal.Body title="Soal Informatika" time="3j lalu" description="Yahya a nya sepuluh" />
-                <CardBankSoal.Footer/>
-            </CardBankSoal>
-                        <CardBankSoal>
-                <CardBankSoal.Header image="/image/bank-soal-icon.png" />
-                <CardBankSoal.Body title="Soal Informatika" time="3j lalu" description="Yahya a nya sepuluh" />
-                <CardBankSoal.Footer/>
-            </CardBankSoal>
-                        <CardBankSoal>
-                <CardBankSoal.Header image="/image/bank-soal-icon.png" />
-                <CardBankSoal.Body title="Soal Informatika" time="3j lalu" description="Yahya a nya sepuluh" />
-                <CardBankSoal.Footer/>
-            </CardBankSoal>
-        </div>
-
-</div>
-           
-        </>
     );
 };
 
 export default HomeGuru;
-
-{/* <main className="bg-gray-100 h-screen">
-                <div className="flex items-center justify-between">
-                    <div>
-                <input 
-                type="text" 
-                name="" 
-                id="" 
-                placeholder="Telusuri" 
-                className="w-100 rounded-2xl p-3 shadow mt-15 ml-70"/>
-                    </div>
-                    <div className="bg-amber-50 w-auto h-auto p-3 mt-13 rounded mr-10"> 
-                        <div className="flex items-center gap-2">
-                            <h1 className="text-amber-400">
-                            Akun Premium</h1>
-                            <RiVipCrownFill  className="text-amber-400"/>
-                            </div>
-                        <p className="text-sm">Berakhir pada : 30 Juli 2025</p>
-                    </div>
-                </div>
-            </main> */}
