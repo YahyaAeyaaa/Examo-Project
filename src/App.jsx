@@ -7,12 +7,18 @@ import HomeGuru from './pages/HomeGuru'
 import BankSoalGuru from './pages/BankSoalGuru';
 import DaftarUjianGuru from './pages/DaftarUjianGuru';
 import TambahUjianPage from './pages/TambahUjianPage'
-import DashboardUser from './layout/DashboardUser';
+import DashboardUser from './layout/DashboardSiswa';
 import HomeSiswa from './pages/siswa_pages/HomeSiswa';
 import ExamListPage from './pages/siswa_pages/ExamListPage';
 import SettingsPage from './pages/siswa_pages/SettingsPage';
 import ProtectedRoute from './components/route/ProtectedRoute';
 import ExamDetail from './pages/siswa_pages/ExamDetail';
+import EditProfileCard from './components/settings/EditProfileCard';
+import UbahPasswordCard from './components/settings/UbahPasswordCard';
+import SettingLayout from './layout/SettingLayout';
+import ConfirmEmailPage from './pages/ConfirmEmailPage';
+import ChangePasswordPage from './pages/ChangePasswordPage';
+import UnauthorizedPage from './pages/UnauthorizedPage';
 // import HomeAdmin from './pages/admin_pages/HomeAdmin';
 
 
@@ -22,6 +28,9 @@ function App() {
     <Routes>
       <Route path="/" element={<Register />} />
       <Route path="/Login" element={<Login />} />
+      <Route path="/forgot-password" element={<ConfirmEmailPage />} />
+      <Route path="/change-password" element={<ChangePasswordPage />} />
+      <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
       <Route element={<ProtectedRoute allowedRoles={["guru"]} />}>
       <Route element={<DashboardGuru />}>
@@ -34,12 +43,15 @@ function App() {
       </Route>
 
       <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
-      <Route element={<DashboardUser />}>
-        <Route path="/HomeSiswa" element={<HomeSiswa />} />
-        <Route path="/Exam" element={<ExamListPage />} />
-        <Route path="/SettingsSiswa" element={<SettingsPage />} />
-        <Route path="/ExamDetail" element={<ExamDetail />} />
-      </Route>
+        <Route path="/siswa" element={<DashboardUser />}>
+          <Route path="home" element={<HomeSiswa />} />
+          <Route path="exam" element={<ExamListPage />} />
+          <Route path="exam/:id" element={<ExamDetail />} />
+          <Route path="setting" element={<SettingLayout />}>
+            <Route path="edit-profile" element={<EditProfileCard />} />
+            <Route path="ubah-password" element={<UbahPasswordCard />} />
+          </Route>
+        </Route>
       </Route>
 
       {/* <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>

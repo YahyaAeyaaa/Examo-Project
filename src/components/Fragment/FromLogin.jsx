@@ -41,7 +41,7 @@
             navigate("/HomeGuru");
             break;
             case "user":
-            navigate("/HomeSiswa");
+            navigate("/siswa/home");
             break;
             case "admin":
             navigate("/HomeAdmin");
