@@ -6,180 +6,78 @@ import { useNavigate } from "react-router-dom";
 
 const FromRegister = () => {
     const navigate = useNavigate()
-
     const [selectedRole, setSelectedRole] = useState('');
-    
-    // State buat form data
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: ''
+        name: '', email: '', password: '', password_confirmation: ''
     });
     const [loading, setLoading] = useState(false);
-    const [errors, setErrors] = useState({
-        role: '',
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-        general: ''
-    });
-    const [registerAttempted, setRegisterAttempted] = useState(false);
+    const [errors, setErrors] = useState({});
 
-    // Handle input changes
+    // Handle input changes & clear errors
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-
-        // Clear validation errors saat user mengetik (tapi tetap pertahankan register errors)
-        if (errors[name] && !registerAttempted) {
-            setErrors(prev => ({ ...prev, [name]: "" }));
-        }
+        setFormData(prev => ({ ...prev, [name]: value }));
+        if (errors[name]) setErrors(prev => ({ ...prev, [name]: "" }));
     };
 
-    // Handle role selection
+    // Handle role selection & clear error
     const handleRoleSelect = (role) => {
         setSelectedRole(role);
-        // Clear role error saat user pilih role
-        if (errors.role && !registerAttempted) {
-            setErrors(prev => ({ ...prev, role: "" }));
-        }
+        if (errors.role) setErrors(prev => ({ ...prev, role: "" }));
     };
 
-    // Validation function
+    // Simplified validation
     const validateForm = () => {
         const newErrors = {};
+        
+        if (!selectedRole) newErrors.role = 'Silakan pilih role terlebih dahulu';
+        if (!formData.name.trim()) newErrors.name = 'Nama lengkap tidak boleh kosong';
+        else if (formData.name.trim().length < 2) newErrors.name = 'Nama minimal 2 karakter';
+        else if (!/^[a-zA-Z\s]+$/.test(formData.name.trim())) newErrors.name = "Nama hanya huruf dan spasi"
+        
+        if (!formData.email.trim()) newErrors.email = 'Email tidak boleh kosong';
+        else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Format email tidak valid';
+        
+        if (!formData.password) newErrors.password = 'Password tidak boleh kosong';
+        else if (formData.password.length < 8) newErrors.password = 'Password minimal 8 karakter';
+        
+        if (!formData.password_confirmation) newErrors.password_confirmation = 'Konfirmasi password tidak boleh kosong';
+        else if (formData.password !== formData.password_confirmation) newErrors.password_confirmation = 'Confirm Password tidak cocok dengan Password Sebelumnya';
 
-        // Validasi role
-        if (!selectedRole) {
-            newErrors.role = 'Silakan pilih role terlebih dahulu';
-        }
-
-        // Validasi nama
-        if (!formData.name.trim()) {
-            newErrors.name = 'Nama lengkap tidak boleh kosong';
-        } else if (formData.name.trim().length < 2) {
-            newErrors.name = 'Nama minimal 2 karakter';
-        }
-
-        // Validasi email
-        if (!formData.email.trim()) {
-            newErrors.email = 'Email tidak boleh kosong';
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = 'Format email tidak valid (harus ada @)';
-        }
-
-        // Validasi password
-        if (!formData.password) {
-            newErrors.password = 'Password tidak boleh kosong';
-        } else if (formData.password.length < 8) {
-            newErrors.password = 'Password minimal 8 karakter';
-        }
-
-        // Validasi confirm password
-        if (!formData.password_confirmation) {
-            newErrors.password_confirmation = 'Konfirmasi password tidak boleh kosong';
-        } else if (formData.password !== formData.password_confirmation) {
-            newErrors.password_confirmation = 'Password tidak cocok';
-        }
-
-        setErrors(prev => ({ ...prev, ...newErrors }));
+        setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
     // Handle form submit
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrors({});
         
-        // Reset state
-        setRegisterAttempted(false);
-        setErrors({
-            role: '',
-            name: '',
-            email: '',
-            password: '',
-            password_confirmation: '',
-            general: ''
-        });
-        
-        // Validasi form
-        if (!validateForm()) {
-            return;
-        }
+        if (!validateForm()) return;
         
         setLoading(true);
         
         try {
-            const registerData = {
-                ...formData,
-                role: selectedRole === 'user' ? 'user' : 'guru'
-            };
-            
-            const response = await apiRegister(registerData);
-            console.log('Register success:', response.data);
-            
+            const registerData = { ...formData, role: selectedRole === 'user' ? 'user' : 'guru' };
+            await apiRegister(registerData);
             navigate("/Login");
-            
         } catch (error) {
             console.error('Register failed:', error);
-            setRegisterAttempted(true);
             
-            if (error.response) {
-                const status = error.response.status;
-                const message = error.response.data?.message || 'Register gagal';
-                
-                switch (status) {
-                    case 422:
-                        // Validation errors dari server
-                        if (error.response.data?.errors) {
-                            const serverErrors = error.response.data.errors;
-                            setErrors(prev => ({ 
-                                ...prev, 
-                                ...serverErrors 
-                            }));
-                        } else {
-                            setErrors(prev => ({ 
-                                ...prev, 
-                                general: message 
-                            }));
-                        }
-                        break;
-                    case 409:
-                        // Email already exists
-                        setErrors(prev => ({ 
-                            ...prev, 
-                            email: 'Email sudah terdaftar' 
-                        }));
-                        break;
-                    default:
-                        setErrors(prev => ({ 
-                            ...prev, 
-                            general: message 
-                        }));
-                }
-            } else if (error.request) {
-                setErrors(prev => ({ 
-                    ...prev, 
-                    general: 'Tidak dapat terhubung ke server. Periksa koneksi internet Anda.' 
-                }));
+            if (error.response?.status === 422 && error.response.data?.errors) {
+                setErrors(error.response.data.errors);
             } else {
-                setErrors(prev => ({ 
-                    ...prev, 
-                    general: 'Terjadi kesalahan yang tidak terduga.' 
-                }));
+                setErrors({ general: error.response?.data?.message || 'Terjadi kesalahan, coba lagi.' });
             }
         } finally {
             setLoading(false);
         }
     };
 
+
+
     return (
         <>
-            {/* General error message */}
             {errors.general && (
                 <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
                     <p className="text-red-600 text-sm">{errors.general}</p>
@@ -193,31 +91,21 @@ const FromRegister = () => {
                         type="button"
                         onClick={() => handleRoleSelect('user')}
                         className={`rounded-2xl p-4 flex group items-center justify-center transition-all duration-200 hover:shadow-md ${
-                            selectedRole === 'user' 
-                                ? 'ring-2 ring-blue-500 shadow-lg' 
-                                : 'hover:ring-1 hover:ring-blue-300'
-                        } ${
-                            errors.role ? 'border-2 border-red-300' : ''
-                        }`}
+                            selectedRole === 'user' ? 'ring-2 ring-blue-500 shadow-lg' : 'hover:ring-1 hover:ring-blue-300'
+                        } ${errors.role ? 'border-2 border-red-300' : ''}`}
                     >
-                        <img src="/image/Siswa.png" alt="Siswa" className="w-12 h-12 object-contain group-hover:scale-110 transition-all duration-300" />
+                        <img src="/image/Siswa.png" alt="user" className="w-12 h-12 object-contain group-hover:scale-110 transition-all duration-300" />
                     </button>
                     
                     <button 
                         type="button"
                         onClick={() => handleRoleSelect('guru')}
-                        className={`rounded-2xl p-4 group flex items-center justify-center transition-all duration-200 hover:shadow-md ${
-                            selectedRole === 'guru' 
-                                ? 'ring-2 ring-blue-400 shadow-lg' 
-                                : 'hover:ring-1 hover:ring-blue-300'
-                        } ${
-                            errors.role ? 'border-2 border-red-300' : ''
-                        }`}
-                        style={{ 
-                            background: '#0081FF'
-                        }}
+                        className={`rounded-2xl p-4 flex group items-center justify-center transition-all duration-200 hover:shadow-md ${
+                            selectedRole === 'guru' ? 'ring-2 ring-blue-500 shadow-lg' : 'hover:ring-1 hover:ring-blue-300'
+                        } ${errors.role ? 'border-2 border-red-300' : ''}`}
+                        style={{ background: '#0081FF' }}
                     >
-                        <img src="/image/GuruIcon.png" alt="Guru" className="w-12 h-12 object-contain group-hover:scale-110 transition-all duration-300" />
+                        <img src="/image/GuruIcon.png" alt="guru" className="w-12 h-12 object-contain group-hover:scale-110 transition-all duration-300" />
                     </button>
                 </div>
                 
@@ -226,10 +114,7 @@ const FromRegister = () => {
                         Role dipilih: {selectedRole === 'user' ? 'Siswa' : 'Guru'}
                     </p>
                 )}
-                
-                {errors.role && (
-                    <p className="text-red-500 text-sm mt-2">{errors.role}</p>
-                )}
+                {errors.role && <p className="text-red-500 text-sm mt-2">{errors.role}</p>}
             </div>
             
             <form onSubmit={handleSubmit}>
@@ -245,27 +130,23 @@ const FromRegister = () => {
                             errors.name ? 'border-red-300 bg-red-50' : ''
                         }`}
                     />
-                    {errors.name && (
-                        <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-                    )}
+                    {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                 </div>
 
                 {/* Email Field */}
-                    <div className="mb-4">
-                        <Index 
-                            type="text"
-                            name="email"
-                            placeholder="Email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            className={`bg-blue-50 focus:ring-blue-300 focus:ring-2 outline-none ${
-                                errors.email ? 'border-red-300 bg-red-50' : ''
-                            }`}
-                        />
-                        {errors.email && (
-                            <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                        )}
-                    </div>
+                <div className="mb-4">
+                    <Index 
+                        type="text"
+                        name="email"
+                        placeholder="Email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className={`bg-blue-50 focus:ring-blue-300 focus:ring-2 outline-none ${
+                            errors.email ? 'border-red-300 bg-red-50' : ''
+                        }`}
+                    />
+                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                </div>
 
                 {/* Password Field */}
                 <div className="mb-4">
@@ -279,9 +160,7 @@ const FromRegister = () => {
                             errors.password ? 'border-red-300 bg-red-50' : ''
                         }`}
                     />
-                    {errors.password && (
-                        <p className="text-red-500 text-sm mt-1">{errors.password}</p>
-                    )}
+                    {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
                 </div>
 
                 {/* Confirm Password Field */}
@@ -296,9 +175,7 @@ const FromRegister = () => {
                             errors.password_confirmation ? 'border-red-300 bg-red-50' : ''
                         }`}
                     />
-                    {errors.password_confirmation && (
-                        <p className="text-red-500 text-sm mt-1">{errors.password_confirmation}</p>
-                    )}
+                    {errors.password_confirmation && <p className="text-red-500 text-sm mt-1">{errors.password_confirmation}</p>}
                 </div>
 
                 <Button 
@@ -306,9 +183,7 @@ const FromRegister = () => {
                     type="submit"
                     disabled={loading}
                     className={`w-full rounded-2xl p-3 text-white transition-all duration-200 ${
-                        loading 
-                            ? 'bg-gray-400 cursor-not-allowed' 
-                            : 'bg-blue-500 hover:bg-blue-600'
+                        loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
                     }`}
                 />
             </form>
