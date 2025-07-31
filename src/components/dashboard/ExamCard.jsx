@@ -29,7 +29,7 @@ const ExamCard = ({ exam }) => {
   <div className="w-[356px] bg-white rounded-[10px] shadow-md overflow-hidden p-3 group transform transition-transform hover:scale-[1.03] duration-300">
     <div className="bg-[#D5EDFF] py-3 px-4 flex justify-center rounded-[10px] overflow-hidden">
       <img
-        src='./image/examCard.png'
+       src='/image/examCard.png'
         alt="Ujian"
         className="w-40 h- object-cover object-center transform transition-transform duration-300 group-hover:scale-[1.2] origin-center"
       />
@@ -47,15 +47,14 @@ const ExamCard = ({ exam }) => {
       <p className="text-sm text-[#A9A9A9] mb-4">{exam.questions} Pertanyaan</p>
 
       <Link
-        to={`/ujian/${exam.id}`}
+        to={`/siswa/exam/${exam.id}`}
         className={cn(
           "block text-center w-full text-white text-base font-semibold py-2 rounded-[5px] transition duration-300",
           {
             "bg-gradient-to-b from-[#0081FF] to-[#025BB1] hover:brightness-150": exam.status !== "nonaktif",
-            "bg-gray-300 text-gray-500 cursor-not-allowed pointer-events-none": exam.status === "nonaktif",
+            "bg-gray-300 text-gray-500 cursor-not-allowed": exam.status === "nonaktif",
           }
-        )}
-      >
+        )}>
         Selengkapnya
       </Link>
     </div>

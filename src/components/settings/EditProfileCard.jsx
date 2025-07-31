@@ -21,6 +21,7 @@ const inputItems = [
 
 const EditProfileCard = () => {
   return (
+    <form >
     <div className="max-w-[740px] px-12 py-12 bg-white rounded-[20px] shadow-md">
       <div className="flex flex-row items-center gap-10 mb-10 justify-center md:justify-start">
         <AvatarUser />
@@ -47,6 +48,7 @@ const EditProfileCard = () => {
         <ButtonProfile text='Simpan' className='bg-gradient-to-b from-[#0081FF] to-[#025BB1] text-sm lg:text-lg text-white' />
       </div>
     </div>
+    </form>
   );
 };
 

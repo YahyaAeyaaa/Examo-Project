@@ -1,11 +1,15 @@
 import { ChevronRight } from "lucide-react";
 import { cn } from "../../../lib/utils";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const ProfileItem = ({ item, active, onClick }) => {
-  const isActive = active === item.value;
-  
+const ProfileItem = ({ item }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const isActive = location.pathname === item.path;
+
   return (
-   <li onClick={() => onClick(item.value)} className={cn("relative flex items-center justify-between gap-4 px-4 py-2 cursor-pointer transition-all duration-200 rounded-r-full",
+   <li onClick={() => navigate(item.path)} className={cn("relative flex items-center justify-between gap-4 px-4 py-2 cursor-pointer transition-all duration-200 rounded-r-full",
     isActive && "lg:bg-[#EAF5FF] lg:text-primary-blue lg:font-medium",
     !isActive && [      
       "lg:hover:bg-[#E5F1FF]",

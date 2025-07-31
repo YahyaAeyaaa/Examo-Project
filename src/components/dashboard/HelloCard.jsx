@@ -17,7 +17,7 @@ const HelloCard = () => {
       </div>
       <div className="flex-shrink-0 ml-4 sm:ml-6 md:ml-10">
         <div className="relative">
-          <img src='./image/icon1.png' alt="Examo mascot illustration" 
+          <img src='/image/icon1.png' alt="Examo mascot illustration" 
             className="w-24 h-16 md:w-32 md:h-20 xl:w-[228px] xl:h-[152px] object-contain"
             loading="lazy" />
         </div>

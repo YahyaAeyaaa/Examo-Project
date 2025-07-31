@@ -39,6 +39,8 @@
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`
     }
 
+    
+
         // Interceptor untuk request - inject token otomatis
     api.interceptors.request.use((config) => {
     const token = localStorage.getItem('authToken')
@@ -60,4 +62,23 @@
     }
     )
 
+    // get exam list siswa
+    export const getUserExams = () => {
+        return api.get('/user/exams')
+    }
+    export const getUserExam = () => {
+        return api.get('/user/exam')
+    }
+
+     export const getExamDetail = (examId) => {
+        return api.get(`/user/exam/${examId}`)
+     }
+
+
+    // change password
+    export const changePassword = (data) => {
+        return api.post('/change-password', data)
+    }
+
+   
     export default api
