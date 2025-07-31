@@ -21,8 +21,8 @@ const SideBar = ({ isSidebarOpen, isMobile, toggleSidebar }) => {
             <SidebarSection
               title={!isSidebarOpen && !isMobile ? 'Fitur' : 'Fitur Examo'}
               items={[
-                { icon: <Dashboard />, label: 'Dashboard', path:'/HomeSiswa' },
-                { icon: <ExamList />, label: 'Daftar Ujian', path:'/Exam' },
+                { icon: <Dashboard />, label: 'Dashboard', path:'/siswa/home' },
+                { icon: <ExamList />, label: 'Daftar Ujian', path:'/siswa/exam' },
               ]}
               collapsed={!isSidebarOpen && !isMobile}
             />
@@ -32,7 +32,7 @@ const SideBar = ({ isSidebarOpen, isMobile, toggleSidebar }) => {
             <SidebarSection
               title={!isSidebarOpen && !isMobile ? 'Sistem' : 'Sistem'}
               items={[
-                { icon: <Settings />, label: 'Pengaturan', path:'/SettingsSiswa' },
+                { icon: <Settings />, label: 'Pengaturan', path:'/siswa/setting/edit-profile' },
               ]}
               collapsed={!isSidebarOpen && !isMobile}
             />

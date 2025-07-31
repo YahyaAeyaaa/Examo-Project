@@ -32,11 +32,18 @@ function FromLogin() {
 
     const validateForm = () => {
         const newErrors = {};
-        if (!formData.email.trim()) newErrors.email = "Email tidak boleh kosong";
-        else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Format email tidak valid";
-        if (!formData.password.trim()) newErrors.password = "Password tidak boleh kosong";
-        else if (formData.password.length < 8) newErrors.password = "Password minimal 8 karakter";
-        
+        if (!formData.email.trim()) {
+            newErrors.email = "Email tidak boleh kosong";
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            newErrors.email = "Format email tidak valid";
+        }
+
+        if (!formData.password.trim()) {
+            newErrors.password = "Password tidak boleh kosong";
+        } else if (formData.password.length < 8) {
+            newErrors.password = "Password minimal 8 karakter";
+        }
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -44,11 +51,11 @@ function FromLogin() {
     const handleLogin = async (e) => {
         e.preventDefault();
         if (loading) return;
-        
+
         setErrors({});
         if (!validateForm()) return;
         setLoading(true);
-        
+
         try {
             const { data } = await apiLogin(formData);
             localStorage.setItem("authToken", data.token);
@@ -56,11 +63,16 @@ function FromLogin() {
             localStorage.setItem("user", JSON.stringify(data.user));
             setAuthToken(data.token);
 
-            const routes = { guru: "/HomeGuru", user: "/HomeSiswa", admin: "/HomeAdmin" };
-            navigate(routes[data.user.role] || "/");
+            // Arahkan berdasarkan role
+            const routes = {
+                guru: "/HomeGuru",
+                user: "/HomeSiswa",
+                admin: "/HomeAdmin",
+            };
 
+            navigate(routes[data.user.role] || "/");
         } catch (error) {
-            const errorMsg = error.response?.status === 401 
+            const errorMsg = error.response?.status === 401
                 ? { general: "Email atau password salah!" }
                 : { general: "Terjadi kesalahan, coba lagi." };
             setErrors(errorMsg);
@@ -76,24 +88,30 @@ function FromLogin() {
                     <p className="text-red-600 text-sm">{errors.general}</p>
                 </div>
             )}
-            
+
             <div className="mb-4">
-                <Index 
-                    type="text" name="email" placeholder="Email"
-                    value={formData.email} onChange={handleChange}
+                <Index
+                    type="text"
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleChange}
                     className={`bg-blue-50 focus:ring-blue-300 focus:ring-2 outline-none ${
-                        errors.email ? 'border-red-300 bg-red-50' : ''
+                        errors.email ? "border-red-300 bg-red-50" : ""
                     }`}
                 />
                 {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
             </div>
 
             <div className="mb-4">
-                <Index 
-                    type="password" name="password" placeholder="Password"
-                    value={formData.password} onChange={handleChange}
+                <Index
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleChange}
                     className={`bg-blue-50 focus:ring-blue-300 focus:ring-2 outline-none ${
-                        errors.password ? 'border-red-300 bg-red-50' : ''
+                        errors.password ? "border-red-300 bg-red-50" : ""
                     }`}
                 />
                 {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
@@ -102,12 +120,13 @@ function FromLogin() {
             <p className="text-blue-500 text-right mb-5 cursor-pointer hover:text-blue-600">
                 Lupa Password?
             </p>
-            
-            <Button 
-                text={loading ? "Loading..." : "Login"} 
-                type="submit" disabled={loading}
+
+            <Button
+                text={loading ? "Loading..." : "Login"}
+                type="submit"
+                disabled={loading}
                 className={`w-full rounded-2xl p-3 text-white transition-all duration-200 ${
-                    loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
+                    loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
                 }`}
             />
         </form>
