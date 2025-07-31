@@ -31,6 +31,14 @@ const contohUjian = [
         questions: 30,
         status: "nonaktif",
         image: '/image/icon1.png'
+    },
+    {
+        id: 0,
+        title: "Ujian Semester ",
+        subject: "Fisika", 
+        questions: 30,
+        status: "aktif",
+        image: '/image/icon1.png'
     }
 ];
 

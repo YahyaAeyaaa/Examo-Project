@@ -1,87 +1,189 @@
-import { useState } from "react";
-import { IoArrowBackSharp } from "react-icons/io5";
-import Index from "../components/element/input";
-import Input from "../components/element/InputOption/Input";
-import Select from "../components/element/InputOption/Select";
+import React, { useState } from 'react';
 
-const TambahUjianPage = () => {
-  const [preview, setPreview] = useState(null);
+// Import semua komponen yang sudah dipecah
+import FormContainer from '../components/element/AddUjian/Container';
+import FormActions from '../components/element/AddUjian/FormAction';
+import FormInput from '../components/element/AddUjian/FormInput';
+import FormSelect from '../components/element/AddUjian/FormSelect';
+import FormGrid from '../components/element/AddUjian/GRIDform';
+import FormHeader from '../components/element/AddUjian/Header';
+import InputImage from '../components/element/AddUjian/InputImage';
 
-  const handleChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setPreview(URL.createObjectURL(file)); // preview gambar
+const TambahUjian = () => {
+  const [formData, setFormData] = useState({
+    judulUjian: '',
+    coverUjian: null,
+    bankSoal: 'matematika',
+    tanggalUjian: '',
+    jamMulai: '',
+    waktuUjian: '',
+    jumlahSoal: '',
+    nilaiKKM: '',
+    deskripsiUjian: ''
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  // Dummy data bank soal
+  const bankSoalOptions = [
+    { value: 'matematika', label: 'Matematika' },
+    { value: 'bahasa-indonesia', label: 'Bahasa Indonesia' },
+    { value: 'ipa', label: 'IPA' },
+    { value: 'ips', label: 'IPS' },
+    { value: 'bahasa-inggris', label: 'Bahasa Inggris' }
+  ];
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleImageUpload = (file) => {
+    setFormData(prev => ({
+      ...prev,
+      coverUjian: file
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    
+    try {
+      console.log('Form Data:', formData);
+      // Handle form submission logic here
+      // await submitExam(formData);
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Redirect or show success message
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
+  const handleCancel = () => {
+    // Reset form or navigate back
+    console.log('Form cancelled');
   };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      setPreview(URL.createObjectURL(file));
-    }
-  };
-
-  const [sidebarToggle, setSidebarToggle] = useState(false);
 
   return (
     <>
-      <div className="flex items-center justify-evenly my-5">
-        <h1 className=" text-2xl">Tambah Ujian</h1>
-        <button className="flex  items-center justify-center gap-3 rounded-lg shadow py-2 px-3">
-          <IoArrowBackSharp />
-          <p>Kembali</p>
-        </button>
-      </div>
+      
+      
+      <FormContainer onSubmit={handleSubmit}>
+        {/* Judul Ujian */}
+        <FormHeader title="Tambah Ujian" />
+        <FormInput
+          label="Judul Ujian"
+          name="judulUjian"
+          value={formData.judulUjian}
+          onChange={handleInputChange}
+          placeholder="Masukkan judul ujian"
+          required
+        />
 
-      <div className="rounded-lg shadow mx-auto w-3xl p-10 bg-white">
-        <h1 className="text-lg mb-2 font-semibold">Judul Ujian</h1>
-        <Index className="bg-white focus:ring-gray-100 ring-gray-300" type="text" placeholder="yahya" />
+        {/* Cover Ujian */}
+        <InputImage
+          label="Cover Ujian"
+          onChange={handleImageUpload}
+        />
 
-        <div
-          className="border-2 border-dashed border-blue-300 rounded-xl p-6 text-center cursor-pointer hover:border-blue-500 transition"
-          style={{ background: "#F4FAFF" }}
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
-        >
-          <input
-            type="file"
-            accept="image/*"
-            id="upload-cover"
-            className="hidden"
-            onChange={handleChange}
+        {/* Grid untuk Bank Soal dan Tanggal */}
+        <FormGrid cols={2}>
+          <FormSelect
+            label="Bank Soal"
+            name="bankSoal"
+            value={formData.bankSoal}
+            onChange={handleInputChange}
+            options={bankSoalOptions}
+            className="bg-blue-50 text-blue-700"
           />
-          <label htmlFor="upload-cover" className="cursor-pointer block">
-            {preview ? (
-              <img
-                src={preview}
-                alt="Preview"
-                className="mx-auto max-h-48 rounded-lg object-contain"
-              />
-            ) : (
-              <div className="flex flex-col items-center justify-center text-gray-500">
-                <img src="/image/CoverImage.png" alt="Upload" className="mb-2" />
-                <p className="text-sm">Klik atau Seret foto anda disini</p>
-              </div>
-            )}
-          </label>
-        </div>
 
-        <div className="flex">
-          <div>
-            <label>
-              <h1>Bank Soal</h1>
-              <Input />
-            </label>
-          </div>
-        </div>
-      </div>
+          <FormInput
+            label="Tanggal Ujian"
+            name="tanggalUjian"
+            type="date"
+            value={formData.tanggalUjian}
+            onChange={handleInputChange}
+            required
+          />
+        </FormGrid>
+
+        {/* Grid untuk Jam Mulai dan Waktu Ujian */}
+        <FormGrid cols={2}>
+          <FormInput
+            label="Jam Mulai Ujian"
+            name="jamMulai"
+            value={formData.jamMulai}
+            onChange={handleInputChange}
+            placeholder="Pilih Jam Mulai Ujian"
+            required
+          />
+
+          <FormInput
+            label="Waktu Ujian"
+            name="waktuUjian"
+            value={formData.waktuUjian}
+            onChange={handleInputChange}
+            placeholder="Tentukan waktu ujian"
+            required
+          />
+        </FormGrid>
+
+        {/* Grid untuk Jumlah Soal dan Nilai KKM */}
+        <FormGrid cols={2}>
+          <FormInput
+            label="Jumlah Soal"
+            name="jumlahSoal"
+            type="number"
+            value={formData.jumlahSoal}
+            onChange={handleInputChange}
+            placeholder="Pilih jumlah soal"
+            min="1"
+            required
+          />
+
+          <FormInput
+            label="Nilai KKM"
+            name="nilaiKKM"
+            type="number"
+            value={formData.nilaiKKM}
+            onChange={handleInputChange}
+            placeholder="Masukkan nilai KKM"
+            min="0"
+            max="100"
+            required
+          />
+        </FormGrid>
+
+        {/* Deskripsi Ujian */}
+        <FormInput
+          label="Deskripsi Ujian"
+          name="deskripsiUjian"
+          type="textarea"
+          value={formData.deskripsiUjian}
+          onChange={handleInputChange}
+          placeholder="Contoh : Ujian Coding, buatlah website sederhana, memiliki 120 Fitur, Gunakan React, CSS framework, Symphony dan PHP, Pake Rust Kalo Perlu, Good Luck"
+          rows={4}
+          required
+        />
+
+        {/* Action Buttons */}
+        <FormActions
+          onCancel={handleCancel}
+          onSubmit={handleSubmit}
+          loading={loading}
+        />
+      </FormContainer>
     </>
   );
 };
 
-export default TambahUjianPage;
+export default TambahUjian;
