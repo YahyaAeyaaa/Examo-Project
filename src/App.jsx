@@ -10,7 +10,6 @@ import TambahUjianPage from './pages/TambahUjianPage'
 import DashboardUser from './layout/DashboardSiswa';
 import HomeSiswa from './pages/siswa_pages/HomeSiswa';
 import ExamListPage from './pages/siswa_pages/ExamListPage';
-import SettingsPage from './pages/siswa_pages/SettingsPage';
 import ProtectedRoute from './components/route/ProtectedRoute';
 import ExamDetail from './pages/siswa_pages/ExamDetail';
 import EditProfileCard from './components/settings/EditProfileCard';
@@ -19,6 +18,9 @@ import SettingLayout from './layout/SettingLayout';
 import ConfirmEmailPage from './pages/ConfirmEmailPage';
 import ChangePasswordPage from './pages/ChangePasswordPage';
 import UnauthorizedPage from './pages/UnauthorizedPage';
+import HelpCard from './components/settings/HelpCard';
+import SyaratDanKetentuan from './components/settings/SyaratDanKetentuan';
+import AboutExamo from './components/settings/AboutExamo';
 // import HomeAdmin from './pages/admin_pages/HomeAdmin';
 
 
@@ -38,7 +40,11 @@ function App() {
         <Route path="/BankSoal" element={<BankSoalGuru />} />
         <Route path="/DaftarUjian" element={<DaftarUjianGuru />} />
         <Route path="/TambahUjian" element={<TambahUjianPage />} />
-         <Route path="/SettingsGuru" element={<SettingsPage />} />
+        <Route path="setting" element={<SettingLayout />}>
+            <Route path="edit-profile" element={<EditProfileCard />} />
+            <Route path="ubah-password" element={<UbahPasswordCard />} />
+            <Route path="bantuan" element={<HelpCard />} />
+        </Route>
       </Route>
       </Route>
 
@@ -50,6 +56,9 @@ function App() {
           <Route path="setting" element={<SettingLayout />}>
             <Route path="edit-profile" element={<EditProfileCard />} />
             <Route path="ubah-password" element={<UbahPasswordCard />} />
+            <Route path="bantuan" element={<HelpCard />} />
+            <Route path="syarat-ketentuan" element={<SyaratDanKetentuan />} />
+            <Route path="tentang-examo" element={<AboutExamo />} />
           </Route>
         </Route>
       </Route>

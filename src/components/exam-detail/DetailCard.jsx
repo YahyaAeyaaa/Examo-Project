@@ -67,11 +67,10 @@ const DetailCard = ({examData}) => {
 
   return (
   <div className="bg-white rounded-[15px] max-h-[750px] h-full flex flex-col">
-  {/* Konten Scrollable */}
   <div className="p-4 overflow-y-auto flex-1">
     <div className="bg-[#D5EDFF] py-5 px-4 flex justify-center rounded-[10px] overflow-hidden mb-4 xl:mb-6">
       <img
-        src="./image/examCard.png"
+        src="/image/examCard.png"
         alt="Ujian"
         className="md:w-50 md:h-40 object-cover object-center transform transition-transform duration-300 group-hover:scale-[1.2] origin-center"
       />
@@ -81,8 +80,8 @@ const DetailCard = ({examData}) => {
       <p className="text-2xl md:text-[32px] font-semibold leading-custom">
         {examData.titles}
       </p>
-      <div className="px-3 py-1.5 bg-[#FFEDEE] rounded-[25px] ">
-        <p className="text-xs md:text-sm text-[#D21F28]">
+      <div className="px-3 py-1 bg-[#FFEDEE] rounded-[25px] ">
+        <p className="text-xs md:text-sm text-[#D21F28] whitespace-nowrap">
           {formatTime(examData.start_time)}
         </p>
       </div>
@@ -100,7 +99,6 @@ const DetailCard = ({examData}) => {
     </p>
   </div>
 
-  {/* Tombol di Bawah */}
   <div className="p-4">
     <ButtonStart />
   </div>

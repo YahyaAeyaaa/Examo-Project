@@ -2,7 +2,10 @@ import { LogOut, User, Lock, Newspaper, Info, HelpCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import ProfileItem from './items/ProfileItem';
 import UserName from './items/UserName';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import AvatarUser from './items/AvatarUser';
+import useAvatar from '../../config/avatar';
+import { FaCircleUser } from "react-icons/fa6";
 
 const menuItems = [
   {
@@ -21,23 +24,33 @@ const menuItems = [
     label: 'Syarat dan Ketentuan',
     icon: <Newspaper className="w-[33px] h-[33px]" />,
     value: 'syarat-ketentuan',
+    path: "/siswa/setting/syarat-ketentuan",
   },
   {
     label: 'Tentang Examo',
     icon: <Info className="w-[33px] h-[33px]" />,
     value: 'tentang',
+    path: "/siswa/setting/tentang-examo",
   },
   {
     label: 'Bantuan',
     icon: <HelpCircle className="w-[33px] h-[33px]" />,
     value: 'bantuan',
+    path: "/siswa/setting/bantuan",
   },
 ];
 
-const ProfileCard = ({ active, onChange }) => {
+const ProfileCard = ({ active, onChange,  }) => {
   const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate()
-
+  const [imageError, setImageError] = useState(false);
+  const { avatar, fetchAvatar, loading } = useAvatar();
+  
+  useEffect(() => {
+    fetchAvatar();
+    setImageError(false); // reset error state
+  }, []);
+  
   const handleConfirmLogout = () => {
     setIsOpen(true)
   }
@@ -57,7 +70,18 @@ const ProfileCard = ({ active, onChange }) => {
   return (
     <div className="px-6 py-12 rounded-[25px] bg-white w-full max-w-sm mx-auto">
       <div className="flex flex-col items-center gap-2">
-        <img src='/image/pfp.jpg' alt="Profile" className="w-45 h-45 object-cover rounded-full" />
+        {loading ? (
+          <div className="w-45 h-45 bg-gray-200 rounded-full animate-pulse"></div>
+        ) : avatar && !imageError ? (
+          <img 
+            src={avatar} 
+            alt="Profile" 
+            className="w-45 h-45 object-cover rounded-full"
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <FaCircleUser className="w-45 h-45 text-gray-400" />
+        )}
         <div className="text-center mt-6">
           <UserName />
         </div>

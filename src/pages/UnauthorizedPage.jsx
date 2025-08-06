@@ -9,8 +9,7 @@ const UnauthorizedPage = () => {
       <p className='text-lg text-[#828282] align-center'>Halaman ini hanya bisa diakses oleh guru!!</p>
       <Link
         to="/siswa/home"
-        className="text-lg text-primary-blue mt-2 hover:underline transition"
-        >
+        className="text-lg text-primary-blue mt-2 hover:underline transition">
         Kembali Ke Dashboard Siswa
         </Link>
     </div>

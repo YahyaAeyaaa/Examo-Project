@@ -11,7 +11,7 @@ const SettingLayout = () => {
             <div className='w-full max-w-md mx-auto lg:mx-0 mb-8'>
             <ProfileCard active={activeSection} onChange={setActiveSection} />
             </div>
-            <div className='w-full max-w-2xl mx-auto lg:mx-0'>
+            <div className='w-full max-w-[740px] lg:mx-0'>
             <Outlet />
             </div>
         </div>
