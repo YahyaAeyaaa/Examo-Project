@@ -165,11 +165,12 @@ const applyAllFilters = useCallback(() => {
       ) : isSearching ? (
         <div className="col-span-full text-center py-12">
           <div className="text-gray-400 mb-4 flex justify-center">
-            <IoIosSearch className='h-16 w-16'/>
+            <img src="/image/data-not-found.png" alt="" />
           </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
-             Tidak ada ujian ditemukan
-            </h3>            
+            <h3 className="text-[22px] font-semibold text-[#373737] mb-2">
+             Oops! Data tidak ditemukan
+            </h3>    
+            <p className='text-lg text-[#828282]'>Silahkan periksa kembali <br /> filter atau kata kunci.</p>        
           </div>
       ) : null}
       </div>

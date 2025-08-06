@@ -4,17 +4,30 @@ import { useState, useEffect } from 'react';
 const UserName = () => {
   const [user, setUser] = useState(null);
   
-    useEffect(() => {
-     
-      const userData = localStorage.getItem('user');
-      if (userData) {
-        try {
-          setUser(JSON.parse(userData));
-        } catch (error) {
-          console.error('Error parsing user data:', error);
-        }
+    const loadUserData = () => {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      try {
+        setUser(JSON.parse(userData));
+      } catch (error) {
+        console.error('Error parsing user data:', error);
       }
-    }, []);
+    }
+  };
+
+  useEffect(() => {
+    loadUserData();
+   
+   const handleUserUpdate = (event) => {
+      setUser(event.detail);
+    };
+
+    window.addEventListener('userUpdated', handleUserUpdate);
+
+    return () => {
+      window.removeEventListener('userUpdated', handleUserUpdate);
+    };
+  }, []);
 
   return (
     <div>

@@ -74,11 +74,30 @@
         return api.get(`/user/exam/${examId}`)
      }
 
-
     // change password
     export const changePassword = (data) => {
         return api.post('/change-password', data)
     }
 
+    // edit profile
+    export const editProfile = (data) => {
+        return api.put('/user/profile', data)
+    }
+
+    export const getUserProfile = () => {
+        return api.get('/user/profile')
+    }
    
+    //edit avatar
+    export const editAvatar = (formData) => {
+  return api.post('/user/profile/avatar', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}
+
+    export const deleteAvatar = (data) => {
+        return api.delete('/user/profile/avatar', data)
+    }
     export default api
